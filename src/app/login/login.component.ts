@@ -1,8 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {first, Subscription} from "rxjs";
-import {IAccount} from "../_interfaces/IAccount";
 import {AccountService} from "../_services/account.service";
-import {HttpService} from "../_services/http.service";
 import {MainService} from "../_services/main.service";
 import {STATE} from "../_enums/STATE";
 
@@ -33,6 +30,7 @@ export class LoginComponent implements OnInit,OnDestroy {
 
   loginClick() {
     //to http service
+    this.service.login(this.email, this.password)
 
   }
 

@@ -3,6 +3,7 @@ import {AccountService} from "../_services/account.service";
 import {MainService} from "../_services/main.service";
 import {STATE} from "../_enums/STATE";
 import {NgForm} from "@angular/forms";
+import {IAccount} from "../_interfaces/IAccount";
 
 @Component({
   selector: 'app-register',
@@ -12,7 +13,6 @@ import {NgForm} from "@angular/forms";
 export class RegisterComponent {
   errorMessage: any;
 
-
   constructor(private service: AccountService, private mainService: MainService) {
   }
   cancelRegClick() {
@@ -20,7 +20,6 @@ export class RegisterComponent {
   }
 
   onRegisterClick(regForm: NgForm) {
-    console.log(regForm)
-
+   this.service.registerAccount(regForm.value as IAccount)
   }
 }

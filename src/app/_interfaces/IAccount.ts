@@ -1,5 +1,5 @@
-export interface IAccount{
-  id: number,
+export interface IAccount {
+  id?: number,
   email: string,
   fName: string,
   lName: string,
@@ -7,4 +7,10 @@ export interface IAccount{
   //todo
   // posts?: IPost[],
 // comments?: IComments[]
-   }
+}
+
+export interface IAccountLogin {
+  email: string,
+  password: string,
+}
+

@@ -5,3 +5,11 @@
 <ng-container *ngIf="state == stateEnum.register">
 <app-register></app-register>
 </ng-container>
+
+<ng-container *ngIf="account != null">
+  <app-navbar></app-navbar>
+</ng-container>
+
+<ng-container *ngIf="state == stateEnum.postList">
+  <app-post-list></app-post-list>
+</ng-container>
