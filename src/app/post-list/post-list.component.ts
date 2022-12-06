@@ -27,6 +27,7 @@ export class PostListComponent {
 
 
   ngOnInit(): void {
+    this.postService.getAllPosts();
   }
 
   ngOnDestroy(): void {

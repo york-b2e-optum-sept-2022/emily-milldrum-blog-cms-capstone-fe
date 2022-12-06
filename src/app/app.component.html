@@ -12,18 +12,26 @@
 
     <header>
       <ng-container *ngIf="account != null">
-
         <app-navbar></app-navbar>
-
-
       </ng-container>
     </header>
 
     <main style="margin-top: 58px">
       <div class="container pt-4">
+
+
         <ng-container *ngIf="state == stateEnum.postList">
           <app-post-list></app-post-list>
         </ng-container>
+
+        <ng-container *ngIf="state == stateEnum.post">
+          <app-post-details></app-post-details>
+        </ng-container>
+        <ng-container *ngIf="state == stateEnum.postInput">
+          <app-post-input></app-post-input>
+        </ng-container>
+
+
 
       </div>
     </main>

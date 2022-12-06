@@ -11,6 +11,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PostListComponent } from './post-list/post-list.component';
 import { PostComponent } from './post/post.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { PostDetailsComponent } from './post-details/post-details.component';
+import { PostInputComponent } from './post-input/post-input.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { NavbarComponent } from './navbar/navbar.component';
     RegisterComponent,
     PostListComponent,
     PostComponent,
-    NavbarComponent
+    NavbarComponent,
+    PostDetailsComponent,
+    PostInputComponent
   ],
   imports: [
     BrowserModule,

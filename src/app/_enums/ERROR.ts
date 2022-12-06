@@ -2,6 +2,8 @@ export enum ERROR {
 //error messages
 
   //login
+
+
   LOGIN_INVALID = "ERROR: Login is invalid",
   LOGIN_BLANK = "ERROR: Please fill in both login fields",
   LOGIN_HTTP_ERROR = "ERROR: Unable to login, try again",
@@ -15,7 +17,12 @@ export enum ERROR {
   REGISTER_INVALID_PASSWORD_MATCH = "ERROR: Passwords do not match",
   REGISTER_HTTP_ERROR_MESSAGE = 'ERROR: Unable to create your account, please try again later',
 
+  //postlist
+  POSTLIST_HTTP_ERROR = 'ERROR: There was an error with the server. Please try again later.',
+
   //post
-  POSTLIST_HTTP_ERROR = 'ERROR: There was an error with the server. Please try again later',
+  POST_NULL = 'ERROR: There was an issue loading this post. Please try again later.',
+  POST_ACCOUNT_NULL = 'ERROR: Select account is not valid.',
+  POST_HTTP_ERROR= 'ERROR: There was an error with the server. Please try again later.',
 
 }

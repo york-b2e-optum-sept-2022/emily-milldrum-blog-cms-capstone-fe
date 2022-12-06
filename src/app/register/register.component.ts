@@ -12,7 +12,7 @@ import {IAccount} from "../_interfaces/IAccount";
 })
 export class RegisterComponent {
   errorMessage: any;
-
+  //TODO register error messages
   constructor(private service: AccountService, private mainService: MainService) {
   }
   cancelRegClick() {

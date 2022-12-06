@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit,OnDestroy {
   //sub: Subscription;
  // @Output() changeRole = new EventEmitter<string>();
 
+  //TODO login error messages
   constructor(private service: AccountService, private mainService: MainService) {
   }
 

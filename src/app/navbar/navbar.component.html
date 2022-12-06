@@ -34,9 +34,12 @@
       <a href="#" class="list-group-item list-group-item-action py-2 ripple active" (click)="home()">
         <i class="fas fa-chart-area fa-fw me-3"></i><span>Home</span>
       </a>
-      <a href="#" class="list-group-item list-group-item-action py-2 ripple" (click)="Logout()"
-      ><i class="fas fa-lock fa-fw me-3"></i><span>Logout</span></a
-      >
+      <a href="#" class="list-group-item list-group-item-action py-2 ripple active" (click)="post()">
+        <i class="fas fa-chart-area fa-fw me-3"></i><span>Post</span>
+      </a>
+      <a href="#" class="list-group-item list-group-item-action py-2 ripple" (click)="logout()"
+      ><i class="fas fa-lock fa-fw me-3"></i><span>Logout</span>
+      </a>
     </div>
   </div>
 </nav>
@@ -107,67 +110,8 @@
         </ul>
       </li>
 
-      <!-- Icon -->
-      <li class="nav-item">
-        <a class="nav-link me-3 me-lg-0" href="#">
-          <i class="fas fa-fill-drip"></i>
-        </a>
-      </li>
-      <!-- Icon -->
-      <li class="nav-item me-3 me-lg-0">
-        <a class="nav-link" href="#">
-          <i class="fab fa-github"></i>
-        </a>
-      </li>
-
-      <!-- Icon dropdown -->
-      <li class="nav-item dropdown">
-        <a
-          class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow"
-          href="#"
-          id="navbarDropdown"
-          role="button"
-          data-mdb-toggle="dropdown"
-          aria-expanded="false"
-        >
-          <i class="flag-united-kingdom flag m-0"></i>
-        </a>
-        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-          <li>
-            <a class="dropdown-item" href="#"
-            ><i class="flag-united-kingdom flag"></i>English
-              <i class="fa fa-check text-success ms-2"></i
-              ></a>
-          </li>
-          <li><hr class="dropdown-divider" /></li>
-          <li>
-            <a class="dropdown-item" href="#"><i class="flag-poland flag"></i>Polski</a>
-          </li>
-          <li>
-            <a class="dropdown-item" href="#"><i class="flag-china flag"></i>中文</a>
-          </li>
-          <li>
-            <a class="dropdown-item" href="#"><i class="flag-japan flag"></i>日本語</a>
-          </li>
-          <li>
-            <a class="dropdown-item" href="#"><i class="flag-germany flag"></i>Deutsch</a>
-          </li>
-          <li>
-            <a class="dropdown-item" href="#"><i class="flag-france flag"></i>Français</a>
-          </li>
-          <li>
-            <a class="dropdown-item" href="#"><i class="flag-spain flag"></i>Español</a>
-          </li>
-          <li>
-            <a class="dropdown-item" href="#"><i class="flag-russia flag"></i>Русский</a>
-          </li>
-          <li>
-            <a class="dropdown-item" href="#"><i class="flag-portugal flag"></i>Português</a>
-          </li>
-        </ul>
-      </li>
-
-      <!-- Avatar -->
+      <!-- Avatar todo drop down -->
+      <ng-container *ngIf="account !== null">
       <li class="nav-item dropdown">
         <a
           class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center"
@@ -178,7 +122,7 @@
           aria-expanded="false"
         >
           <img
-            src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img (31).webp"
+            src="{{account.profilePic}}"
             class="rounded-circle"
             height="22"
             alt="Avatar"
@@ -200,7 +144,9 @@
           </li>
         </ul>
       </li>
+      </ng-container>
     </ul>
+
   </div>
   <!-- Container wrapper -->
 </nav>

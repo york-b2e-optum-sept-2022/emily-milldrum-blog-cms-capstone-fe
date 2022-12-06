@@ -3,5 +3,6 @@ export enum STATE {
   register = "register",
   postList = "list of blog posts",
   post = "view specific post",
+  postInput = "edit or create post",
   pmPage = "private message page"
 }
