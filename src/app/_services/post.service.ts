@@ -5,6 +5,7 @@ import {IPost} from "../_interfaces/IPost";
 import {HttpService} from "./http.service";
 import {MainService} from "./main.service";
 import {ERROR} from "../_enums/ERROR";
+import {STATE} from "../_enums/STATE";
 
 @Injectable({
   providedIn: 'root'
@@ -67,5 +68,35 @@ export class PostService {
     // this.$isCreating.next(false)
     // this.resetAll()
     // return true;
+  }
+
+  updatePost(title: string, body: string) {
+
+    let post = this.$selectedPost.getValue();
+    if(post !== null){
+      post.title = title;
+      post.body = body;
+      post.updateDate = new Date();
+      console.log(post)
+      this.httpService.updatePost(post).pipe(first()).subscribe({
+        next: (p) => {
+          let newList: IPost[] = [...this.postList];
+          newList.push(p);
+          this.$postList.next(newList)
+          this.$selectedPost.next(p)
+          this.main.$state.next(STATE.post)
+        },
+        error: (err) => {
+          console.log(err)
+          this.$postError.next(ERROR.POST_HTTP_ERROR)
+        }
+      })
+
+    } else {
+      //todo error
+    }
+
+
+
   }
 }

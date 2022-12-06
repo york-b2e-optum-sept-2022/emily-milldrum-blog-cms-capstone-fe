@@ -5,6 +5,7 @@ import {IAccount} from "../_interfaces/IAccount";
 import {PostService} from "../_services/post.service";
 import {MainService} from "../_services/main.service";
 import {AccountService} from "../_services/account.service";
+import {STATE} from "../_enums/STATE";
 
 @Component({
   selector: 'app-post-input',
@@ -55,11 +56,11 @@ export class PostInputComponent {
   }
 
   onCancel() {
-
+    this.mainService.$state.next(STATE.post)
   }
 
   onUpdate() {
-
+    this.postService.updatePost(this.title, this.body)
   }
 
   closeThis() {

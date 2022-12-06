@@ -36,4 +36,8 @@ export class HttpService {
   createPost(newPost: IPost) {//for new posts
     return this.httpClient.post('http://localhost:8080/api/post', newPost) as Observable<IPost>;
   }
+
+  updatePost(post: IPost) {
+    return this.httpClient.put<IPost>('http://localhost:8080/api/post', post);
+  }
 }
