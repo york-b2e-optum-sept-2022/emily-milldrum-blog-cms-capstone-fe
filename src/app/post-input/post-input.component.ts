@@ -48,9 +48,6 @@ export class PostInputComponent {
   }
 
   onCreate() {
-    console.log(this.title)
-    console.log(this.body)
-    console.log(this.account)
     this.postService.createPost(this.title, this.body, this.account)
 
   }

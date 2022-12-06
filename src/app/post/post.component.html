@@ -3,10 +3,13 @@
   </div>
   <div class="date"><img class="profilePic" src="{{post.author.profilePic}}"
                          alt="{{post.author.fName}} {{post.author.lName}} picture">
-    <h5 class="authorName"> {{post.author.fName}} {{post.author.lName}}   //   {{post.createDate | date  :'medium' }}</h5>
+    <h5 class="authorName"> {{post.author.fName}} {{post.author.lName}}
+      //   {{post.createDate | date  :'medium' }}
+      <ng-container *ngIf="post.updateDate">//  Updated: {{post.updateDate | date  :'medium' }}    </ng-container>
 
-    <ng-container *ngIf="post.updateDate">Updated: {{post.updateDate | date  :'medium' }}    </ng-container>
-  </div>
+    </h5>
+
+     </div>
 
   <h3 class="postTitle" (click)="viewPost()">{{post.title}}</h3>
 
@@ -14,7 +17,7 @@
   <!--  class="card-footer text-muted"  <div class="card-header"></div>-->
   <div class="card-body">
     <p class="card-text">
-      {{post.body}}
+      {{bodyTrim}}
     </p>
   </div>
 <!--  <div class="modify-buttons">-->

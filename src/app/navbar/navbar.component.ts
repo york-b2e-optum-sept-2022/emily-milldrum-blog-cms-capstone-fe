@@ -3,7 +3,6 @@ import {STATE} from "../_enums/STATE";
 import {MainService} from "../_services/main.service";
 import {AccountService} from "../_services/account.service";
 import {Subject, takeUntil} from "rxjs";
-import {IPost} from "../_interfaces/IPost";
 import {IAccount} from "../_interfaces/IAccount";
 import {PostService} from "../_services/post.service";
 
@@ -20,7 +19,8 @@ export class NavbarComponent {
   account: IAccount | null = null;
 
 
-  constructor(private main: MainService, private accountService: AccountService) {
+  constructor(private main: MainService, private accountService: AccountService,
+              private postService: PostService) {
     this.accountService.$loggedInAccount.pipe(takeUntil(this.destroy$)).subscribe(
       dt => {this.account = dt
       }
@@ -34,14 +34,17 @@ export class NavbarComponent {
 
   home() {
     this.main.$state.next(STATE.postList)
+    this.postService.$selectedPost.next(null);
   }
 
   logout() {
     this.main.$state.next(STATE.login)
     this.accountService.$loggedInAccount.next(null)
+    this.postService.$selectedPost.next(null);
   }
 
   post() {
     this.main.$state.next(STATE.postInput)
+    this.postService.$selectedPost.next(null);
   }
 }

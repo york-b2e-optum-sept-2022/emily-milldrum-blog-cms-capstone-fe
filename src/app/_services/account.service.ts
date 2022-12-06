@@ -50,7 +50,31 @@ export class AccountService {
     this.$accountError.next(null);
   }
 
-  registerAccount(regAccount: IAccount){
+  registerAccount(regAccount: IAccount, passwordRepeat: string){
+
+    // field validation
+    if (regAccount.email.length < 5 || !regAccount.email.includes('@') || !regAccount.email.includes('.')) {
+      this.$accountError.next(ERROR.REGISTER_INVALID_EMAIL_MESSAGE);
+      return;
+    }
+    if (regAccount.fName.length < 1) {
+      this.$accountError.next(ERROR.REGISTER_INVALID_FIRST_NAME_MESSAGE);
+      return;
+    }
+    if (regAccount.lName.length < 1) {
+      this.$accountError.next(ERROR.REGISTER_INVALID_LAST_NAME_MESSAGE);
+      return;
+    }
+    if (regAccount.password.length < 4) {
+      this.$accountError.next(ERROR.REGISTER_INVALID_PASSWORD_LENGTH_MESSAGE);
+      return;
+    }
+    if (regAccount.password !== passwordRepeat) {
+      this.$accountError.next(ERROR.REGISTER_INVALID_PASSWORD_MATCH);
+      return;
+    }
+
+    //TODO check for existing account before reg
     this.httpService.createAccount(regAccount).pipe(first()).subscribe({
       next: (account) => {
         console.log(account)

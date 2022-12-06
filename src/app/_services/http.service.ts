@@ -40,4 +40,8 @@ export class HttpService {
   updatePost(post: IPost) {
     return this.httpClient.put<IPost>('http://localhost:8080/api/post', post);
   }
+
+  deletePost(id: number) {
+    return this.httpClient.delete<IPost>('http://localhost:8080/api/post/' + id);
+  }
 }

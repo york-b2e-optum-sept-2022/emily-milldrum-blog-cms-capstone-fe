@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {IAccount} from "../_interfaces/IAccount";
-import {BehaviorSubject, first, Subject} from "rxjs";
+import {BehaviorSubject, first} from "rxjs";
 import {IPost} from "../_interfaces/IPost";
 import {HttpService} from "./http.service";
 import {MainService} from "./main.service";
@@ -14,7 +14,8 @@ export class PostService {
 
   //used for populating post list main page
   private postList: IPost[] = [];
-  $postList: Subject<IPost[]> = new Subject<IPost[]>();
+  $postList = new BehaviorSubject<IPost[]>([])
+    //: Subject<IPost[]> = new Subject<IPost[]>();
   //displays post list errors
   $postListError = new BehaviorSubject<string | null>(null)
 
@@ -59,6 +60,7 @@ export class PostService {
         let newList: IPost[] = [...this.postList];
         newList.push(post);
         this.$postList.next(newList)
+        this.main.$state.next(STATE.postList)
       },
       error: (err) => {
         console.log(err)
@@ -97,6 +99,31 @@ export class PostService {
     }
 
 
+
+  }
+
+  deletePost(post: IPost | null) {
+    console.log('post service delete')
+    if(post !== null && post.id !== undefined)
+    {
+      this.httpService.deletePost(post.id).pipe(first()).subscribe({
+        next: () => {
+          let list: IPost[] = [...this.$postList.getValue()];
+          this.$postList.next(
+            list.filter(inc => post.id !== inc.id)
+          );
+          this.$postError.next(null)
+          this.main.$state.next(STATE.postList);
+          this.$selectedPost.next(null);
+        },
+        error: (err) => {
+          console.log(err)
+          this.$postError.next(ERROR.POST_HTTP_ERROR)
+        }
+      })
+    } else {
+      this.$postError.next(ERROR.POST_NULL)
+    }
 
   }
 }

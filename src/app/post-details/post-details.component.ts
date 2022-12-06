@@ -42,7 +42,7 @@ export class PostDetailsComponent {
 
 
   onDelete() {
-
+    this.postService.deletePost(this.post);
   }
 
   onUpdate() {
