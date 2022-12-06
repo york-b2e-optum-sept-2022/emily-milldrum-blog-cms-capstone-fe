@@ -4,5 +4,6 @@ export enum STATE {
   postList = "list of blog posts",
   post = "view specific post",
   postInput = "edit or create post",
-  pmPage = "private message page"
+  pmPage = "private message page",
+  pmList = "private message list landing",
 }

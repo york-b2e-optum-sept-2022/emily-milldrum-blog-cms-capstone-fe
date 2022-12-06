@@ -23,7 +23,6 @@
         <ng-container *ngIf="state == stateEnum.postList">
           <app-post-list></app-post-list>
         </ng-container>
-
         <ng-container *ngIf="state == stateEnum.post">
           <app-post-details></app-post-details>
         </ng-container>
@@ -31,6 +30,9 @@
           <app-post-input></app-post-input>
         </ng-container>
 
+        <ng-container *ngIf="state == stateEnum.pmList">
+          <app-pm-list></app-pm-list>
+        </ng-container>
 
 
       </div>

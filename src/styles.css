@@ -43,8 +43,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .profilePic {
   border-radius: 50%;
-  width: 35px;
-  height: 35px;
+  width: 45px;
+  height: 45px;
   float: left;
 }
 

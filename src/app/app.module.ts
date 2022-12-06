@@ -13,6 +13,9 @@ import { PostComponent } from './post/post.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PostDetailsComponent } from './post-details/post-details.component';
 import { PostInputComponent } from './post-input/post-input.component';
+import { CommentInputComponent } from './comment-input/comment-input.component';
+import { CommentComponent } from './comment/comment.component';
+import { PmListComponent } from './pm-list/pm-list.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,10 @@ import { PostInputComponent } from './post-input/post-input.component';
     PostComponent,
     NavbarComponent,
     PostDetailsComponent,
-    PostInputComponent
+    PostInputComponent,
+    CommentInputComponent,
+    CommentComponent,
+    PmListComponent,
   ],
   imports: [
     BrowserModule,

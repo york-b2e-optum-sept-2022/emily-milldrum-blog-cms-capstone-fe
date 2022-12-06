@@ -17,6 +17,7 @@ export class NavbarComponent {
   destroy$ = new Subject();
   errMsg: string | null = null;
   account: IAccount | null = null;
+  searchText = "";
 
 
   constructor(private main: MainService, private accountService: AccountService,
@@ -32,6 +33,12 @@ export class NavbarComponent {
     this.destroy$.complete();
   }
 
+  onSearchTextChange(text: string){
+    this.postService.onSearchTextChange(text);
+    console.log(text)
+  }
+
+
   home() {
     this.main.$state.next(STATE.postList)
     this.postService.$selectedPost.next(null);
@@ -45,6 +52,11 @@ export class NavbarComponent {
 
   post() {
     this.main.$state.next(STATE.postInput)
+    this.postService.$selectedPost.next(null);
+  }
+
+  pm() {
+    this.main.$state.next(STATE.pmList);
     this.postService.$selectedPost.next(null);
   }
 }

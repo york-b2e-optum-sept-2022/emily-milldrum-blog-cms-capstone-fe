@@ -18,8 +18,8 @@ export class AccountService {
   //the account that is logged in
   $loggedInAccount = new BehaviorSubject<IAccount | null>(null);
 
-  //displays account errors
-  $accountError = new BehaviorSubject<string | null>(null)
+  $accountError = new BehaviorSubject<string | null>(null) //selected account errors
+  $accountListError  = new BehaviorSubject<string | null>(null); //account list error
 
   constructor(private httpService: HttpService, private main: MainService) {
     this.getAllAccounts();
@@ -103,5 +103,11 @@ export class AccountService {
         this.$accountError.next(ERROR.REGISTER_HTTP_ERROR_MESSAGE);
       }
     });
+  }
+
+  onSearchTextChange(text: string) {
+    this.$accountList.next(
+      this.accountList.filter(acct => acct.fName.toUpperCase().includes(text.toUpperCase()))
+    )
   }
 }

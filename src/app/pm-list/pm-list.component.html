@@ -1,0 +1,13 @@
+<input
+  [ngModel]="searchText"
+  (ngModelChange)="onSearchTextChange($event)" id="search-input"
+  class="input-group-text border-0 fas fa-search" type="search" placeholder="Search" aria-label="Search"
+  style="min-width: 225px;">
+
+
+
+<ng-container *ngFor="let account of accountList">
+  <div class="accountList">{{account.fName}} {{account.lName}} </div>
+  <buttoN (click)="privateMsg()">PM</buttoN>
+  <button (click)="viewProfile()">View Profile</button>
+</ng-container>
