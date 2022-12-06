@@ -11,8 +11,6 @@ import {STATE} from "../_enums/STATE";
 })
 export class AccountService {
 
-  destroy$ = new Subject();
-
   //used for populating search for posts by user & pm list
   private accountList: IAccount[] = [];
   $accountList: Subject<IAccount[]> = new Subject<IAccount[]>();
@@ -26,11 +24,6 @@ export class AccountService {
   constructor(private httpService: HttpService, private main: MainService) {
     this.getAllAccounts();
   }
-
-ngOnDestroy() {
-  this.destroy$.next(null);
-  this.destroy$.complete();
-}
 
   getAccountList(){
     return this.accountList;

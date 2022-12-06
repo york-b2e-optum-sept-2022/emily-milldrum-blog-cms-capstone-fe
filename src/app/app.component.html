@@ -3,13 +3,31 @@
 </ng-container>
 
 <ng-container *ngIf="state == stateEnum.register">
-<app-register></app-register>
+  <app-register></app-register>
 </ng-container>
 
-<ng-container *ngIf="account != null">
-  <app-navbar></app-navbar>
-</ng-container>
 
-<ng-container *ngIf="state == stateEnum.postList">
-  <app-post-list></app-post-list>
-</ng-container>
+<div class="container " id="main-container">
+  <div class="card shadow bg-light" id="main-sub-container">
+
+    <header>
+      <ng-container *ngIf="account != null">
+
+        <app-navbar></app-navbar>
+
+
+      </ng-container>
+    </header>
+
+    <main style="margin-top: 58px">
+      <div class="container pt-4">
+        <ng-container *ngIf="state == stateEnum.postList">
+          <app-post-list></app-post-list>
+        </ng-container>
+
+      </div>
+    </main>
+
+  </div>
+</div>
+
