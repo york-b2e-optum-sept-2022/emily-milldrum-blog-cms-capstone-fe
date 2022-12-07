@@ -40,4 +40,16 @@
   <app-comment-input>
 
   </app-comment-input>
+
+  comments go here
+
+  <ng-container *ngIf="post.comment !== undefined">
+
+<div class="container">
+  <app-comment
+    *ngFor="let comment of post.comment"
+    [comment]="comment"
+  ></app-comment>
+</div>
+  </ng-container>
 </div>

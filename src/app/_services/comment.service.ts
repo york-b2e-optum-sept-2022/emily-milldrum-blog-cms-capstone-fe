@@ -4,6 +4,7 @@ import {IComment} from "../_interfaces/IComment";
 import {IAccount} from "../_interfaces/IAccount";
 import {PostService} from "./post.service";
 import {ERROR} from "../_enums/ERROR";
+import {HttpService} from "./http.service";
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class CommentService {
   account: IAccount | null = null;
   destroy$ = new Subject();
 
-  constructor(private postService: PostService){
+  constructor(private postService: PostService, private httpService: HttpService){
   }
 
   ngOnDestroy() {
@@ -32,5 +33,12 @@ export class CommentService {
     } else {
       this.postService.addComment(comment)
     }
+  }
+
+  deleteComment(comment: any) {
+
+    //TODO something is wrong here
+    this.httpService.deleteComment(comment.id)
+
   }
 }

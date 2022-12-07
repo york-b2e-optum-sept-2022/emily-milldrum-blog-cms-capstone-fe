@@ -9,5 +9,5 @@
 <ng-container *ngFor="let account of accountList">
   <div class="accountList">{{account.fName}} {{account.lName}} </div>
   <button (click)="privateMsg()">PM</button>
-  <button (click)="viewProfile()">View Profile</button>
+  <button (click)="viewProfile(account)">View Profile</button>
 </ng-container>

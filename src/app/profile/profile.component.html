@@ -1,0 +1,9 @@
+<ng-container *ngIf="account !== null">
+{{account.fName}} {{account.lName}}
+<img src="{{account.profilePic}}">
+</ng-container>
+
+<app-post
+  *ngFor="let post of postList"
+  [post]="post"
+></app-post>

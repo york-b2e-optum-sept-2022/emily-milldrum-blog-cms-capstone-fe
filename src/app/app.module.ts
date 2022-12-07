@@ -16,6 +16,7 @@ import { PostInputComponent } from './post-input/post-input.component';
 import { CommentInputComponent } from './comment-input/comment-input.component';
 import { CommentComponent } from './comment/comment.component';
 import { PmListComponent } from './pm-list/pm-list.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { PmListComponent } from './pm-list/pm-list.component';
     CommentInputComponent,
     CommentComponent,
     PmListComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

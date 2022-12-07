@@ -29,9 +29,11 @@
         <ng-container *ngIf="state == stateEnum.postInput">
           <app-post-input></app-post-input>
         </ng-container>
-
         <ng-container *ngIf="state == stateEnum.pmList">
           <app-pm-list></app-pm-list>
+        </ng-container>
+        <ng-container *ngIf="state == stateEnum.profile">
+          <app-profile></app-profile>
         </ng-container>
 
 

@@ -27,7 +27,7 @@ export class PostService {
   $postError = new BehaviorSubject<string | null>(null)
 
   aut: IAccount = {id: 0, email: "", fName: "", lName: "", password: "", profilePic: ""}
-  newPost: IPost = {author: this.aut, body: "", createDate: new Date(), title: "", commentList: []};
+  newPost: IPost = {author: this.aut, body: "", createDate: new Date(), title: "", comment: []};
 
   account: IAccount | null = null;
   destroy$ = new Subject();
@@ -38,6 +38,20 @@ export class PostService {
       .subscribe(account => {
         this.account = account
       })
+  }
+
+  getPostsByAuthor(id: number) {
+    this.httpService.getPostsByAuthor(id).pipe(first()).subscribe({
+      next: data => {
+        this.postList = data;
+        this.$postList.next(this.postList);
+        console.log(this.postList)
+        this.$postListError.next(null);
+      },
+      error: () => {
+        this.$postListError.next(ERROR.POSTLIST_HTTP_ERROR);
+      }
+    })
   }
 
   getAllPosts() {
@@ -149,30 +163,41 @@ export class PostService {
       if (post.id !== undefined) {
         let commentFormat: ICommentNew = {
           author: this.account,
-          comment: comment,
+          postId: post.id,
           createDate: new Date(),
-          post: post.id
+          comment: comment
         }
 
+        // if (post.comment !== undefined && post.comment !== null) {
+        //   post.comment.push(commentFormat)
+        // } else {//if no comments list, make empty array
+        //   post.comment = []
+        //   post.comment.push(commentFormat)
 
-        if (post.commentList !== undefined && post.commentList !== null) {
-          post.commentList.push(commentFormat)
-        } else {//if no comments list, make empty array
-          post.commentList = []
-          post.commentList.push(commentFormat)
-
+          console.log(post)
           //console.log(post.comments)
-          this.httpService.updatePost(post).pipe(first()).subscribe({
-            next: (p) => {
-              let newList: IPost[] = [...this.postList];
-              newList.push(p);
-              this.$postList.next(newList)
-              this.$selectedPost.next(p)
-              this.main.$state.next(STATE.post)
+          //   this.httpService.updatePost(post).pipe(first()).subscribe({
+          //     next: (p) => {
+          //       let newList: IPost[] = [...this.postList];
+          //       newList.push(p);
+          //       this.$postList.next(newList)
+          //       this.$selectedPost.next(p)
+          //       this.main.$state.next(STATE.post)
+          //     },
+          //     error: (err) => {
+          //       console.log(err)
+          //       this.$postError.next(ERROR.POST_HTTP_ERROR)
+          //     }
+          //   })
+          // }
+          this.httpService.addComment(commentFormat).pipe(first()).subscribe({
+            next: (post) => {
+              this.$selectedPost.next(post)
+             // this.resetErrorMessages()
             },
             error: (err) => {
               console.log(err)
-              this.$postError.next(ERROR.POST_HTTP_ERROR)
+              //this.next(ERROR.STAGE_ADD_ERROR)
             }
           })
         }
@@ -181,11 +206,12 @@ export class PostService {
         console.log('something wrong')
       }
     }
-  }
+
 
   onSearchTextChange(text: string) {
     this.$postList.next(
       this.postList.filter(post => post.title.toUpperCase().includes(text.toUpperCase()))
     )
   }
+
 }

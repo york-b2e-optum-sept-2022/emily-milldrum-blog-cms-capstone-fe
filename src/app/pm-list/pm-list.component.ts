@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import {Subject, takeUntil} from "rxjs";
 import {AccountService} from "../_services/account.service";
 import {IAccount} from "../_interfaces/IAccount";
+import {MainService} from "../_services/main.service";
+import {STATE} from "../_enums/STATE";
 
 @Component({
   selector: 'app-pm-list',
@@ -15,7 +17,7 @@ export class PmListComponent {
   destroy$ = new Subject();
   searchText: string = "";
 
-  constructor(private accountService: AccountService) {
+  constructor(private accountService: AccountService, private main: MainService) {
     this.accountService.$accountList.pipe(takeUntil(this.destroy$)).subscribe(
       ls => {this.accountList = ls
         console.log(this.accountList)
@@ -46,7 +48,9 @@ export class PmListComponent {
 
   }
 
-  viewProfile() {
-
+  viewProfile(account: IAccount) {
+    console.log(account)
+    this.accountService.$viewAccount.next(account)
+    this.main.$state.next(STATE.profile)
   }
 }

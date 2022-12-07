@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {IAccount, IAccountLogin} from "../_interfaces/IAccount";
 import {Observable} from "rxjs";
 import {IPost} from "../_interfaces/IPost";
+import {ICommentNew} from "../_interfaces/IComment";
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +30,11 @@ export class HttpService {
   }
 
   //post http requests
+
+  getPostsByAuthor(id: number) {
+    return this.httpClient.get('http://localhost:8080/api/post/a/'+ id) as Observable<IPost[]>;
+  }
+
   getAllPosts() {
     return this.httpClient.get('http://localhost:8080/api/post') as Observable<IPost[]>;
   }
@@ -49,4 +55,14 @@ export class HttpService {
   // addComment(post: IPost) {
   //   return this.httpClient.put<IPost>('http://localhost:8080/api/post', post);
   // }
+
+
+  //delete comment
+  deleteComment(id: number) {
+    return this.httpClient.delete<IPost>('http://localhost:8080/api/comment/' + id);
+  }
+
+  addComment(comment: ICommentNew) {
+    return this.httpClient.post<IPost>('http://localhost:8080/api/comment/', comment);
+  }
 }

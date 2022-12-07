@@ -27,6 +27,9 @@ export class PostDetailsComponent {
 
     this.postService.$selectedPost.pipe(takeUntil(this.destroy$)).subscribe(
       dt => {this.post = dt
+
+        console.log(this.post)
+        console.log(this.post?.comment)
       }
     )
 
@@ -34,6 +37,9 @@ export class PostDetailsComponent {
       dt => {this.account = dt
       }
     )
+  }
+
+  ngOnInit(){
   }
   ngOnDestroy(): void {
     this.destroy$.next(null);

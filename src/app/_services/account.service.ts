@@ -15,8 +15,8 @@ export class AccountService {
   private accountList: IAccount[] = [];
   $accountList: Subject<IAccount[]> = new Subject<IAccount[]>();
 
-  //the account that is logged in
-  $loggedInAccount = new BehaviorSubject<IAccount | null>(null);
+  $loggedInAccount = new BehaviorSubject<IAccount | null>(null); // account that is logged in
+  $viewAccount = new BehaviorSubject<IAccount | null>(null); // for individual profile page
 
   $accountError = new BehaviorSubject<string | null>(null) //selected account errors
   $accountListError  = new BehaviorSubject<string | null>(null); //account list error
