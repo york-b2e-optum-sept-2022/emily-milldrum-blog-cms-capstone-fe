@@ -58,6 +58,9 @@ export class PostService {
     this.httpService.getAllPosts().pipe(first()).subscribe({
       next: data => {
         this.postList = data;
+        // @ts-ignore
+        this.postList.sort((a,b) =>  new Date(b.createDate) - new Date(a.createDate)
+        )
         this.$postList.next(this.postList);
         console.log(this.postList)
         this.$postListError.next(null);

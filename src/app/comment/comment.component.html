@@ -1,5 +1,11 @@
-<ng-container *ngIf="comment !== null">
-  {{comment.comment}} by {{comment.author.fName}} {{comment.author.lName}}
+<ng-container *ngIf="comment !== null && isUpdating == false">
+  <div class="date"><img class="profilePic" src="{{comment.author.profilePic}}"
+                         alt="{{comment.author.fName}} {{comment.author.lName}} picture"></div>
+  <div class="authorName">{{comment.author.fName}} {{comment.author.lName}} </div>
+  <div class="date">@ {{comment.createDate | date:'short'}}</div>
+  <div *ngIf="comment.updateDate !== null" class="date">Updated: {{comment.updateDate | date:'short' }}</div>
+
+  <div class="comment"><h3>{{comment.comment}}</h3></div>
   <ng-container *ngIf="this.account !== null">
     <div *ngIf="comment.author.id == this.account.id" class="modify-buttons">
       <button class="btn btn-light" (click)="onUpdate()">
@@ -20,4 +26,8 @@
       </button>
     </div>
   </ng-container>
+</ng-container>
+
+<ng-container *ngIf="isUpdating">
+  <app-comment-input></app-comment-input>
 </ng-container>

@@ -66,4 +66,8 @@ export class HttpService {
   addComment(comment: ICommentNew) {
     return this.httpClient.post<IPost>('http://localhost:8080/api/comment/', comment);
   }
+
+  updateComment(comment: IComment) {
+    return this.httpClient.put<IComment>('http://localhost:8080/api/comment/', comment)
+  }
 }

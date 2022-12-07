@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import {Subject, takeUntil} from "rxjs";
+import {Component, Input} from '@angular/core';
+import {first, Subject, takeUntil} from "rxjs";
 import {IComment} from "../_interfaces/IComment";
 import {CommentService} from "../_services/comment.service";
 
@@ -11,7 +11,6 @@ import {CommentService} from "../_services/comment.service";
 export class CommentInputComponent {
 
   selectedComment: IComment | null = null;
-
   // categoryField: string | null = null;
   // categoryNew: IProductCategoryNew = {
   //   category: ""
@@ -24,7 +23,7 @@ export class CommentInputComponent {
     this.commentService.$commentError.pipe(takeUntil(this.destroy$)).subscribe(message => this.errorMessage = message);
 
     //subscribe to find selected category to update
-    this.commentService.$selectedComment.pipe(takeUntil(this.destroy$)).subscribe(com => {
+    this.commentService.$selectedComment.pipe(first()).subscribe(com => {
       if (com != null){
         this.selectedComment = com;
         this.comment = com.comment;
@@ -40,10 +39,15 @@ export class CommentInputComponent {
   }
 
   cancelUpdate() {
-
+    this.commentService.$selectedComment.next(null)
+    this.commentService.$isUpdating.next(false);
   }
 
   updateComment() {
+    if(this.selectedComment !== null){
+      this.selectedComment.comment = this.comment
+      this.commentService.updateComment(this.selectedComment)
+    }
 
   }
 }

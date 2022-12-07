@@ -30,6 +30,10 @@ export class PostDetailsComponent {
 
         console.log(this.post)
         console.log(this.post?.comment)
+        if(this.post !== null && this.post.comment !== undefined){
+          // @ts-ignore
+          this.post.comment.sort((a,b) =>  new Date(b.createDate) - new Date(a.createDate))
+        }
       }
     )
 

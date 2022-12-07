@@ -15,6 +15,7 @@ export class CommentService {
 
   //for editing individual comment
   $selectedComment = new BehaviorSubject<IComment | null>(null)
+  $isUpdating = new BehaviorSubject<boolean>(false)
   //displays comment errors
   $commentError = new BehaviorSubject<string | null>(null)
   account: IAccount | null = null;
@@ -58,6 +59,28 @@ export class CommentService {
         //let list: IPost[] = [...this.$postList.getValue()];
        // this..next(
          // list.filter(inc => post.id !== inc.id)
+        // );
+        // this.$postError.next(null)
+        // this.main.$state.next(STATE.postList);
+        // this.$selectedPost.next(null);
+      },
+      error: (err) => {
+        console.log(err)
+        this.$commentError.next(ERROR.COMMENT_HTTP_ERROR)
+      }
+    })
+  }
+
+  updateComment(selectedComment: IComment) {
+    this.httpService.updateComment(selectedComment).pipe(first()).subscribe({
+      next: (comment) => {
+
+        this.$commentError.next(null)
+        this.$selectedComment.next(null)
+        this.$isUpdating.next(false)
+        //let list: IPost[] = [...this.$postList.getValue()];
+        // this..next(
+        // list.filter(inc => post.id !== inc.id)
         // );
         // this.$postError.next(null)
         // this.main.$state.next(STATE.postList);
