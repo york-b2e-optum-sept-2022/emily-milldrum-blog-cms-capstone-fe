@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject, Subject} from "rxjs";
+import {BehaviorSubject, first, Subject} from "rxjs";
 import {IComment} from "../_interfaces/IComment";
 import {IAccount} from "../_interfaces/IAccount";
 import {PostService} from "./post.service";
 import {ERROR} from "../_enums/ERROR";
 import {HttpService} from "./http.service";
+import {IPost} from "../_interfaces/IPost";
+import {STATE} from "../_enums/STATE";
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +29,9 @@ export class CommentService {
   }
 
   addComment(comment: string) {
+    //TODO something is wrong here
+    //
+    // duplicating addded, but adding 1 to backend.. front end problem
     if (comment == "" || comment == null || comment == undefined)
     {
       this.$commentError.next(ERROR.COMMENT_BLANK)
@@ -35,10 +40,33 @@ export class CommentService {
     }
   }
 
-  deleteComment(comment: any) {
+  deleteComment(comment: IComment) {
 
-    //TODO something is wrong here
-    this.httpService.deleteComment(comment.id)
 
+   // this.httpService.deleteComment(comment.)
+
+    console.log('post service delete')
+
+    if(comment.id == undefined){
+      this.$commentError.next(ERROR.COMMENT_NULL)
+      return;
+    }
+    this.httpService.deleteComment(comment.id).pipe(first()).subscribe({
+      next: (post) => {
+        this.postService.$selectedPost.next(post);
+        this.$commentError.next(null)
+        //let list: IPost[] = [...this.$postList.getValue()];
+       // this..next(
+         // list.filter(inc => post.id !== inc.id)
+        // );
+        // this.$postError.next(null)
+        // this.main.$state.next(STATE.postList);
+        // this.$selectedPost.next(null);
+      },
+      error: (err) => {
+        console.log(err)
+        this.$commentError.next(ERROR.COMMENT_HTTP_ERROR)
+      }
+    })
   }
 }

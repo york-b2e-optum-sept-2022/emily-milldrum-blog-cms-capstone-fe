@@ -24,6 +24,8 @@ export enum ERROR {
   POST_HTTP_ERROR= 'ERROR: There was an error with the server. Please try again later.',
 
   //comment
- COMMENT_BLANK =  'ERROR: Comment is blank'
+  COMMENT_BLANK =  'ERROR: Comment is blank',
+  COMMENT_NULL = 'ERROR: Comment is null',
+  COMMENT_HTTP_ERROR = 'ERROR: There was an error with the server. Please try again later.',
 
 }

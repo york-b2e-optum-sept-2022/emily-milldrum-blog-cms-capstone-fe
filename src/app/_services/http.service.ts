@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {IAccount, IAccountLogin} from "../_interfaces/IAccount";
 import {Observable} from "rxjs";
 import {IPost} from "../_interfaces/IPost";
-import {ICommentNew} from "../_interfaces/IComment";
+import {IComment, ICommentNew} from "../_interfaces/IComment";
 
 @Injectable({
   providedIn: 'root'
@@ -58,6 +58,7 @@ export class HttpService {
 
 
   //delete comment
+
   deleteComment(id: number) {
     return this.httpClient.delete<IPost>('http://localhost:8080/api/comment/' + id);
   }
