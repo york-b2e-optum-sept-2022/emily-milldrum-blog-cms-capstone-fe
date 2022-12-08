@@ -1,6 +1,6 @@
+<div class="card text-center" id="post-list">
 <div class="container" *ngIf="post">
-  <div class="card text-center">
-  </div>
+
   <div class="date"><img class="profilePic" src="{{post.author.profilePic}}"
                          alt="{{post.author.fName}} {{post.author.lName}} picture">
     <h5 class="authorName"> {{post.author.fName}} {{post.author.lName}}
@@ -20,5 +20,7 @@
       {{bodyTrim}}
     </p>
   </div>
-  <div *ngIf="post.comment !== undefined" class="counts">{{post.comment.length}} comment(s)</div>
+  <div *ngIf="post.comment !== undefined && post.comment !==null" class="counts">{{post.comment.length}} comment(s)<br>
+  {{viewCount}} Unique view(s)</div>
+</div>
 </div>

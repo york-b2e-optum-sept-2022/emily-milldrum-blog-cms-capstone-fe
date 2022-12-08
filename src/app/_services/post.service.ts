@@ -111,8 +111,8 @@ export class PostService {
           let newList: IPost[] = [...this.postList];
           newList.push(p);
           this.$postList.next(newList)
-          this.$selectedPost.next(p)
-          this.main.$state.next(STATE.post)
+          this.$selectedPost.next(null)
+          this.main.$state.next(STATE.postList)
         },
         error: (err) => {
           console.log(err)

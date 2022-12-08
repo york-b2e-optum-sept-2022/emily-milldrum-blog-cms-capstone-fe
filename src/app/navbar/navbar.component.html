@@ -1,27 +1,39 @@
 <!-- Sidebar -->
-<nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
+<nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse">
   <div class="position-sticky">
+    <!-- Search form -->
     <div class="list-group list-group-flush mx-3 mt-4">
+      <div class="card text-center">
+        <input
+          [ngModel]="searchText"
+          (ngModelChange)="onSearchTextChange($event)" id="search-input"
+          class="input-group-text border-0 fas fa-search" type="search" placeholder="Search Posts" aria-label="Search"
+          style="min-width: 150px;">
+        <div class="container">
+          <div class="bg-white">
 
-      <a href="#" class="list-group-item list-group-item-action py-2 ripple" (click)="home()">
-        <i class="fas fa-chart-area fa-fw me-3"></i><span>Home</span>
-      </a>
-      <a href="#" class="list-group-item list-group-item-action py-2 ripple" (click)="pm()">
-        <i class="fas fa-chart-area fa-fw me-3"></i><span>PM</span>
-      </a>
-      <a href="#" class="list-group-item list-group-item-action py-2 ripple" (click)="post()">
-        <i class="fas fa-chart-area fa-fw me-3"></i><span>Post</span>
-      </a>
-      <a href="#" class="list-group-item list-group-item-action py-2 ripple" (click)="logout()"
-      ><i class="fas fa-lock fa-fw me-3"></i><span>Logout</span>
-      </a>
+            <a href="#" class="list-group-item list-group-item-action py-2 ripple" (click)="home()">
+              <i class="fas fa-chart-area fa-fw me-3"></i><span>Home</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action py-2 ripple" (click)="pm()">
+              <i class="fas fa-chart-area fa-fw me-3"></i><span>PM</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action py-2 ripple" (click)="post()">
+              <i class="fas fa-chart-area fa-fw me-3"></i><span>Post</span>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action py-2 ripple" (click)="logout()"
+            ><i class="fas fa-lock fa-fw me-3"></i><span>Logout</span>
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </nav>
 <!-- Sidebar -->
 
 <!-- Navbar -->
-<nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+<nav id="main-navbar" class="navbar navbar-expand-lg navbar-light fixed-top">
   <!-- Container wrapper -->
   <div class="container-fluid">
     <!-- Toggle button -->
@@ -39,15 +51,11 @@
 
     <!-- Brand -->
     <a class="navbar-brand" id="title-style" (click)="home()">
-      <img src="https://i.pinimg.com/736x/39/99/84/39998408ff671099aa6178916bf5487c.jpg" width="10%" height="10%" alt="a social city">
+      <!--      <img id="logo"-->
+      <!--           src="https://t3.ftcdn.net/jpg/02/05/82/94/360_F_205829429_majz1Np54rpCmhCIXCVgBjj3lq80btiD.jpg"-->
+      <!--           width="10%" height="10%" alt="a social city">-->
       Social City
     </a>
-    <!-- Search form -->
-    <input
-      [ngModel]="searchText"
-      (ngModelChange)="onSearchTextChange($event)" id="search-input"
-      class="input-group-text border-0 fas fa-search" type="search" placeholder="Search" aria-label="Search"
-      style="min-width: 225px;">
 
 
     <!-- Right links -->
@@ -83,38 +91,38 @@
 
       <!-- Avatar todo drop down -->
       <ng-container *ngIf="account !== null">
-      <li class="nav-item dropdown">
-        <a
-          class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center"
-          href="#"
-          id="navbarDropdownMenuLink"
-          role="button"
-          data-mdb-toggle="dropdown"
-          aria-expanded="false"
-        >
-          <img
-            src="{{account.profilePic}}"
-            class="rounded-circle"
-            height="22"
-            alt="Avatar"
-            loading="lazy"
-          />
-        </a>
-        <ul
-          class="dropdown-menu dropdown-menu-end"
-          aria-labelledby="navbarDropdownMenuLink"
-        >
-          <li>
-            <a class="dropdown-item" href="#">My profile</a>
-          </li>
-          <li>
-            <a class="dropdown-item" href="#">Settings</a>
-          </li>
-          <li>
-            <a class="dropdown-item" href="#">Logout</a>
-          </li>
-        </ul>
-      </li>
+        <li class="nav-item dropdown" id="navbar">
+          <a
+            class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center"
+            href="#"
+            id="navbarDropdownMenuLink"
+            role="button"
+            data-mdb-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <img
+              src="{{account.profilePic}}"
+              class="rounded-circle"
+              height="22"
+              alt="Avatar"
+              loading="lazy"
+            />
+          </a>
+          <ul
+            class="dropdown-menu dropdown-menu-end"
+            aria-labelledby="navbarDropdownMenuLink"
+          >
+            <li>
+              <a class="dropdown-item" href="#">My profile</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#">Settings</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#">Logout</a>
+            </li>
+          </ul>
+        </li>
       </ng-container>
     </ul>
 

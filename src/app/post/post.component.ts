@@ -19,6 +19,7 @@ export class PostComponent {
   errorMessage: string | null = null;
 
   bodyTrim: string = "";
+  viewCount: number = 0;
 
   constructor(private postService: PostService, private mainService: MainService) {
     this.postService.$postError.pipe(takeUntil(this.destroy$)).subscribe(

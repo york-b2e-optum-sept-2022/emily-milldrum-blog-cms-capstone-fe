@@ -1,7 +1,12 @@
-<ng-container *ngIf="account !== null">
-{{account.fName}} {{account.lName}}
-<img src="{{account.profilePic}}">
-</ng-container>
+<div class="card text-center" id="post-list">
+  <div class="container" *ngIf="account !== null">
+    <img class="profilePicBig" src="{{account.profilePic}}"
+         alt="{{account.fName}} {{account.lName}} picture">
+    <h5 class="authorName"> {{account.fName}} {{account.lName}}
+    </h5>
+    {{account.fName}} {{account.lName}}
+  </div>
+</div>
 
 <app-post
   *ngFor="let post of postList"

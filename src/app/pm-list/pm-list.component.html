@@ -1,13 +1,18 @@
-<input
-  [ngModel]="searchText"
-  (ngModelChange)="onSearchTextChange($event)" id="search-input"
-  class="input-group-text border-0 fas fa-search" type="search" placeholder="Search" aria-label="Search"
-  style="min-width: 225px;">
+<div class="card text-center" id="pm-list">
+  <input
+    [ngModel]="searchText"
+    (ngModelChange)="onSearchTextChange($event)" id="search-input"
+    class="input-group-text border-0 fas fa-search" type="search" placeholder="Search" aria-label="Search"
+    style="min-width: 225px;">
 
 
-
-<ng-container *ngFor="let account of accountList">
-  <div class="accountList">{{account.fName}} {{account.lName}} </div>
-  <button (click)="privateMsg()">PM</button>
-  <button (click)="viewProfile(account)">View Profile</button>
-</ng-container>
+  <ng-container *ngFor="let account of accountList">
+    <div class="accountList">
+      <div class="container">
+        {{account.fName}} {{account.lName}}
+        <button class="btn btn-light" (click)="privateMsg()">PM</button>
+        <button class="btn btn-light" (click)="viewProfile(account)">View Profile</button>
+      </div>
+    </div>
+  </ng-container>
+</div>

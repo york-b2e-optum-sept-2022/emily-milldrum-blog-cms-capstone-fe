@@ -1,6 +1,5 @@
+<div class="card text-center" id="post-list">
 <div class="container" *ngIf="post">
-  <div class="card text-center">
-  </div>
   <div class="date"><img class="profilePic" src="{{post.author.profilePic}}"
                          alt="{{post.author.fName}} {{post.author.lName}} picture">
     {{post.createDate | date  :'medium' }}
@@ -52,4 +51,5 @@
   ></app-comment>
 </div>
   </ng-container>
+</div>
 </div>
