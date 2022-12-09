@@ -140,10 +140,10 @@ export class AccountService {
   }
 
 
-  sendMessage(message: string, sender: IAccount | null, receiver: IAccount | null) {
+  sendMessage(message: string, sender: IAccount | null, receiver: IAccount | null): boolean {
     if(sender == null || receiver == null){
       //TODO ERROR
-      return;
+      return false;
     }
     let newMessage: IMessage = {message: message, receiver: receiver, sender: sender};
     this.httpService.sendMsg(newMessage).pipe(first()).subscribe({
@@ -155,8 +155,10 @@ export class AccountService {
       error: () => {
         //TODO
         this.$accountError.next(ERROR.REGISTER_HTTP_ERROR_MESSAGE);
+        return false;
       }
     });
+    return true;
   }
 
 

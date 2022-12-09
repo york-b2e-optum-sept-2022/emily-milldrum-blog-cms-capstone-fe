@@ -27,7 +27,7 @@ export class PostService {
   $postError = new BehaviorSubject<string | null>(null)
 
   aut: IAccount = {id: 0, email: "", fName: "", lName: "", password: "", profilePic: ""}
-  newPost: IPost = {author: this.aut, body: "", createDate: new Date(), title: "", comment: []};
+  newPost: IPost = {author: this.aut, body: "", createDate: new Date(), title: "", comment: [], views: []};
 
   account: IAccount | null = null;
   destroy$ = new Subject();
@@ -80,6 +80,7 @@ export class PostService {
       this.newPost.body = body;
       this.newPost.createDate = new Date();
       this.newPost.author = account;
+      this.newPost.views = [];
     }
     this.httpService.createPost(this.newPost).pipe(first()).subscribe({
       next: (post) => {
@@ -217,4 +218,30 @@ export class PostService {
     )
   }
 
+  addView(id: number) {
+
+    let post = this.$selectedPost.getValue();
+
+    if (post !== null) {
+      if(post.views == null){
+        post.views = [];
+      }
+      post.views.push(id);
+      console.log(post)
+      this.httpService.updatePost(post).pipe(first()).subscribe({
+        next: (p) => {
+          let newList: IPost[] = [...this.postList];
+          newList.push(p);
+          this.$postList.next(newList)
+          this.$selectedPost.next(p)
+        },
+        error: (err) => {
+          console.log(err)
+          this.$postError.next(ERROR.POST_HTTP_ERROR)
+        }
+      })
+    } else {
+      //todo error
+    }
+  }
 }

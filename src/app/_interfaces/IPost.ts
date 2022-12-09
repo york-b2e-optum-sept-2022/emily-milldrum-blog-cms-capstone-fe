@@ -10,5 +10,6 @@ export interface IPost {
   updateDate?: Date,
   title: string,
   body: string,
-  comment?: IComment[]
+  comment?: IComment[],
+  views: number[]
 }

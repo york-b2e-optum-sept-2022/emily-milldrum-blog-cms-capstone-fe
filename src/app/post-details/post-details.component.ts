@@ -18,6 +18,7 @@ export class PostDetailsComponent {
   errMsg: string | null = null;
   post: IPost | null = null;
   account: IAccount | null = null;
+  viewCount: number = 0;
 
   constructor(private postService: PostService, private mainService: MainService, private accountService: AccountService) {
     this.postService.$postError.pipe(takeUntil(this.destroy$)).subscribe(
@@ -27,12 +28,10 @@ export class PostDetailsComponent {
 
     this.postService.$selectedPost.pipe(takeUntil(this.destroy$)).subscribe(
       dt => {this.post = dt
-
-        console.log(this.post)
-        console.log(this.post?.comment)
         if(this.post !== null && this.post.comment !== undefined){
           // @ts-ignore
           this.post.comment.sort((a,b) =>  new Date(b.createDate) - new Date(a.createDate))
+          this.viewCount=this.post.views.length
         }
       }
     )
@@ -44,6 +43,33 @@ export class PostDetailsComponent {
   }
 
   ngOnInit(){
+
+    if(this.post?.views !== null && this.post?.views !== undefined){//check if view list exists
+      this.viewCount = this.post.views.length //assign view count
+      console.log(this.post.views.length)
+      if(this.account !== null && this.account.id !== undefined && this.account.id !== null){
+        // console.log('view list exists')
+        // if(this.post.views.length == 0){
+        //   console.log('view list length = 0')
+        //   this.postService.addView(this.account.id)
+        // }
+        // @ts-ignore
+        let value = this.post.views.find(id => id == this.account.id) //check for this account id in the view count list
+
+        if(!value){
+          console.log('adding view')
+          this.postService.addView(this.account.id)
+        } else {
+          console.log('found on view list')
+          console.log(value)
+        }
+      }
+    // } else {
+    //   console.log('add first view')
+    //   if(this.account !== null && this.account.id !== undefined && this.account.id !== null) {
+    //     this.postService.addView(this.account.id)
+    //   }
+    }
   }
   ngOnDestroy(): void {
     this.destroy$.next(null);

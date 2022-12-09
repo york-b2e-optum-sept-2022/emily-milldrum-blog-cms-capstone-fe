@@ -53,6 +53,7 @@ export class ChatComponent {
 
   sendMessage() {
     console.log('send message')
-    this.accountService.sendMessage(this.message, this.sender, this.receiver)
+    let value = this.accountService.sendMessage(this.message, this.sender, this.receiver)
+    if(value == true){this.message=""}
   }
 }
