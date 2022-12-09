@@ -7,15 +7,16 @@ import {STATE} from "../_enums/STATE";
 
 @Component({
   selector: 'app-pm-list',
-  templateUrl: './pm-list.component.html',
-  styleUrls: ['./pm-list.component.css']
+  templateUrl: './chat-list.component.html',
+  styleUrls: ['./chat-list.component.css']
 })
-export class PmListComponent {
+export class ChatListComponent {
 
   accountList: IAccount[] = [];
   errorMessage: string | null = null;
   destroy$ = new Subject();
   searchText: string = "";
+  loggedInAccount: IAccount | null = null;
 
   constructor(private accountService: AccountService, private main: MainService) {
     this.accountService.$accountList.pipe(takeUntil(this.destroy$)).subscribe(
@@ -25,6 +26,12 @@ export class PmListComponent {
     )
     this.accountService.$accountListError.pipe(takeUntil(this.destroy$)).subscribe(
       dt => {this.errorMessage = dt
+      }
+    )
+
+    this.accountService.$loggedInAccount.pipe(takeUntil(this.destroy$)).subscribe(
+      dt => {
+          this.loggedInAccount = dt
       }
     )
   }
@@ -44,8 +51,16 @@ export class PmListComponent {
     console.log(text)
   }
 
-  privateMsg() {
+  privateMsg(account: IAccount) {
+    this.main.$state.next(STATE.chat)
+    this.accountService.$selectedChat.next(account);
+    this.accountService.getMsg(this.loggedInAccount, account);
 
+    console.log(account)
+    // if(account !== null && this.loggedInAccount !== null)
+    // {
+    //   this.accountService.findChat(account, this.loggedInAccount)
+    // }
   }
 
   viewProfile(account: IAccount) {

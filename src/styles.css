@@ -44,7 +44,6 @@ body {
 /*  }*/
 /*}*/
 .sidebar .active {
-
   box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
 }
 
@@ -82,9 +81,23 @@ body {
 }
 
 
-#post-list, #pm-list{
+#post-list, #pm-list, #message-list{
   margin: 3rem;
   padding: 3rem;
+}
+.date{
+  margin: .25rem;
+  color: darkgrey;
+  font-size: small;
+  font-variant: small-caps;
+}
+#comment,.comment{
+  margin: 1rem;
+  padding: 1rem;
+}
+.comment{
+  margin: 1rem;
+  padding: 1rem;
 }
 
 .close-button, .modify-buttons {

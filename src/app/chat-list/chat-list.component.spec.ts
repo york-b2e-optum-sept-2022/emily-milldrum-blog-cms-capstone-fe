@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PmListComponent } from './pm-list.component';
+import { ChatListComponent } from './chat-list.component';
 
 describe('PmListComponent', () => {
-  let component: PmListComponent;
-  let fixture: ComponentFixture<PmListComponent>;
+  let component: ChatListComponent;
+  let fixture: ComponentFixture<ChatListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PmListComponent ]
+      declarations: [ ChatListComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(PmListComponent);
+    fixture = TestBed.createComponent(ChatListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

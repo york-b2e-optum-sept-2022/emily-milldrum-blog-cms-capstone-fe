@@ -4,6 +4,8 @@ import {IAccount, IAccountLogin} from "../_interfaces/IAccount";
 import {Observable} from "rxjs";
 import {IPost} from "../_interfaces/IPost";
 import {IComment, ICommentNew} from "../_interfaces/IComment";
+import {IChat, IChatNew} from "../_interfaces/IChat";
+import {IMessage} from "../_interfaces/IMessage";
 
 @Injectable({
   providedIn: 'root'
@@ -69,5 +71,21 @@ export class HttpService {
 
   updateComment(comment: IComment) {
     return this.httpClient.put<IComment>('http://localhost:8080/api/comment/', comment)
+  }
+
+  createChat(newChat: IChatNew) {
+    return this.httpClient.post<IChat>('http://localhost:8080/api/chat/', newChat);
+  }
+
+  getChat(newChat: IChatNew) {
+    return this.httpClient.post<IChat>('http://localhost:8080/api/getChat/', newChat);
+  }
+
+  sendMsg(newMessage: IMessage) {
+    return this.httpClient.post<IMessage>('http://localhost:8080/api/msg/', newMessage);
+  }
+
+  getMsg(senderId: number, receiverId: number) {
+    return this.httpClient.get<IMessage[]>(`http://localhost:8080/api/msg?sender=${senderId}&receiver=${receiverId}`);
   }
 }

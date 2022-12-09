@@ -56,7 +56,7 @@ export class NavbarComponent {
   }
 
   pm() {
-    this.main.$state.next(STATE.pmList);
+    this.main.$state.next(STATE.chatList);
     this.postService.$selectedPost.next(null);
   }
 }

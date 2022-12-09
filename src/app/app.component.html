@@ -29,11 +29,14 @@
         <ng-container *ngIf="state == stateEnum.postInput">
           <app-post-input></app-post-input>
         </ng-container>
-        <ng-container *ngIf="state == stateEnum.pmList">
+        <ng-container *ngIf="state == stateEnum.chatList">
           <app-pm-list></app-pm-list>
         </ng-container>
         <ng-container *ngIf="state == stateEnum.profile">
           <app-profile></app-profile>
+        </ng-container>
+        <ng-container *ngIf="state == stateEnum.chat">
+          <app-chat></app-chat>
         </ng-container>
 
 

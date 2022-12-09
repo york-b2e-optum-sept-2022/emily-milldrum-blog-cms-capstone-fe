@@ -10,7 +10,9 @@
     <div class="accountList">
       <div class="container">
         {{account.fName}} {{account.lName}}
-        <button class="btn btn-light" (click)="privateMsg()">PM</button>
+        <ng-container *ngIf="loggedInAccount !== null && loggedInAccount.id !== undefined">
+        <button *ngIf="account.id !== this.loggedInAccount.id" class="btn btn-light" (click)="privateMsg(account)">PM</button>
+        </ng-container>
         <button class="btn btn-light" (click)="viewProfile(account)">View Profile</button>
       </div>
     </div>

@@ -15,8 +15,9 @@ import { PostDetailsComponent } from './post-details/post-details.component';
 import { PostInputComponent } from './post-input/post-input.component';
 import { CommentInputComponent } from './comment-input/comment-input.component';
 import { CommentComponent } from './comment/comment.component';
-import { PmListComponent } from './pm-list/pm-list.component';
+import { ChatListComponent } from './chat-list/chat-list.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ChatComponent } from './chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -30,8 +31,9 @@ import { ProfileComponent } from './profile/profile.component';
     PostInputComponent,
     CommentInputComponent,
     CommentComponent,
-    PmListComponent,
+    ChatListComponent,
     ProfileComponent,
+    ChatComponent,
   ],
   imports: [
     BrowserModule,
