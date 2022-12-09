@@ -4,6 +4,7 @@ import {PostService} from "../_services/post.service";
 import {Subject, takeUntil} from "rxjs";
 import {MainService} from "../_services/main.service";
 import {STATE} from "../_enums/STATE";
+import {AccountService} from "../_services/account.service";
 
 @Component({
   selector: 'app-post',
@@ -12,7 +13,6 @@ import {STATE} from "../_enums/STATE";
 })
 export class PostComponent {
 
-  //todo
   @Input() post: IPost | null = null;
   destroy$ = new Subject();
   postList: IPost[] = [];
@@ -20,7 +20,7 @@ export class PostComponent {
 
   bodyTrim: string = "";
 
-  constructor(private postService: PostService, private mainService: MainService) {
+  constructor(private postService: PostService, private mainService: MainService, private accountService: AccountService) {
     this.postService.$postError.pipe(takeUntil(this.destroy$)).subscribe(
       dt => {this.errorMessage = dt
       }
@@ -29,7 +29,7 @@ export class PostComponent {
 
   ngOnInit(){
     if(this.post !== null){
-      this.bodyTrim = this.post.body.slice(0,150)+'....';
+      this.bodyTrim = this.post.body.slice(0,150)+'.... see more';
     }
   }
 
@@ -41,5 +41,11 @@ export class PostComponent {
   viewPost() {
     this.postService.$selectedPost.next(this.post);
     this.mainService.$state.next(STATE.post);
+  }
+
+  profile() {
+    if(this.post !== null)
+    this.accountService.$viewAccount.next(this.post.author);
+    this.mainService.$state.next(STATE.profile)
   }
 }

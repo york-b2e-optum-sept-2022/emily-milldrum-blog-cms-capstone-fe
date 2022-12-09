@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AccountService} from "../_services/account.service";
 import {MainService} from "../_services/main.service";
 import {STATE} from "../_enums/STATE";
+import {Subject, takeUntil} from "rxjs";
 
 @Component({
   selector: 'app-login',
@@ -14,28 +15,29 @@ export class LoginComponent implements OnInit,OnDestroy {
   password: string = "";
   errorMessage: string | null = null;
   isLogin: boolean = true;
+  destroy$ = new Subject()
 
-  //sub: Subscription;
- // @Output() changeRole = new EventEmitter<string>();
-
-  //TODO login error messages
   constructor(private service: AccountService, private mainService: MainService) {
+    this.service.$accountError.pipe(takeUntil(this.destroy$)).subscribe(
+      dt => {this.errorMessage = dt
+      }
+    )
   }
 
   ngOnInit(): void {
   }
 
-  ngOnDestroy() {
-    //this.sub.unsubscribe();
+  ngOnDestroy(): void {
+    this.destroy$.next(null);
+    this.destroy$.complete();
   }
 
   loginClick() {
-    //to http service
     this.service.login(this.email, this.password)
-
   }
 
   registerClick() {
     this.mainService.$state.next(STATE.register)
   }
+
 }

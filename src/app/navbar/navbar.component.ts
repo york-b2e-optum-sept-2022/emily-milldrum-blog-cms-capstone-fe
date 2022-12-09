@@ -59,4 +59,9 @@ export class NavbarComponent {
     this.main.$state.next(STATE.chatList);
     this.postService.$selectedPost.next(null);
   }
+
+  profile() {
+    this.main.$state.next(STATE.profile)
+    this.accountService.$viewAccount.next(this.account)
+  }
 }

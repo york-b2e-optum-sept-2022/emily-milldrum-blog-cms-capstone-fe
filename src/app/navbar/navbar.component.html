@@ -2,21 +2,21 @@
 <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse">
   <div class="position-sticky">
     <!-- Search form -->
-    <div class="list-group list-group-flush mx-3 mt-4">
+    <div class="sidebar-spacing">
       <div class="card text-center">
-        <input
-          [ngModel]="searchText"
-          (ngModelChange)="onSearchTextChange($event)" id="search-input"
-          class="input-group-text border-0 fas fa-search" type="search" placeholder="Search Posts" aria-label="Search"
-          style="min-width: 150px;">
-        <div class="container">
-          <div class="bg-white">
+        <div ><span class="centering">Navigation</span></div>
 
+        <div class="list-group list-group-flush mx-3 mt-4">
+
+          <div class="nav-buttons"></div>
+
+          <div >
+            <i class="fas fa-chart-area fa-fw me-3"></i><span> </span>
             <a href="#" class="list-group-item list-group-item-action py-2 ripple" (click)="home()">
               <i class="fas fa-chart-area fa-fw me-3"></i><span>Home</span>
             </a>
             <a href="#" class="list-group-item list-group-item-action py-2 ripple" (click)="pm()">
-              <i class="fas fa-chart-area fa-fw me-3"></i><span>PM</span>
+              <i class="fas fa-chart-area fa-fw me-3"></i><span>Find People</span>
             </a>
             <a href="#" class="list-group-item list-group-item-action py-2 ripple" (click)="post()">
               <i class="fas fa-chart-area fa-fw me-3"></i><span>Post</span>
@@ -26,6 +26,7 @@
             </a>
           </div>
         </div>
+
       </div>
     </div>
   </div>
@@ -60,54 +61,33 @@
 
     <!-- Right links -->
     <ul class="navbar-nav ms-auto d-flex flex-row">
-      <!-- Notification dropdown -->
-      <li class="nav-item dropdown">
-        <a
-          class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow"
-          href="#"
-          id="navbarDropdownMenuLink1"
-          role="button"
-          data-mdb-toggle="dropdown"
-          aria-expanded="false"
-        >
-          <i class="fas fa-bell"></i>
-          <span class="badge rounded-pill badge-notification bg-danger">1</span>
-        </a>
-        <ul
-          class="dropdown-menu dropdown-menu-end"
-          aria-labelledby="navbarDropdownMenuLink1"
-        >
-          <li>
-            <a class="dropdown-item" href="#">Some news</a>
-          </li>
-          <li>
-            <a class="dropdown-item" href="#">Another news</a>
-          </li>
-          <li>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </li>
-        </ul>
-      </li>
+      <!-- Notifications -->
 
       <!-- Avatar todo drop down -->
-      <ng-container *ngIf="account !== null">
-        <li class="nav-item dropdown" id="navbar">
-          <a
-            class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center"
-            href="#"
-            id="navbarDropdownMenuLink"
-            role="button"
-            data-mdb-toggle="dropdown"
-            aria-expanded="false"
-          >
-            <img
-              src="{{account.profilePic}}"
-              class="rounded-circle"
-              height="35"
-              alt="Avatar"
-              loading="lazy"
-            />
-          </a>
+      <div *ngIf="account !== null">
+        <div (click)="profile()">
+
+          <li class="white-font">{{account.fName}} {{account.lName}}      </div>
+        <li id="navbar">
+
+            <ng-container *ngIf="account.profilePic == null">
+              <mat-icon class="white-icon">account_circle</mat-icon>
+            </ng-container>
+
+            <ng-container *ngIf="account.profilePic != null">
+              <img
+                src="{{account.profilePic}}"
+                class="rounded-circle"
+                height="40"
+                alt="Avatar"
+                loading="lazy"
+              />
+            </ng-container>
+
+          <mat-icon class="white-icon" matBadge="3" matBadgeColor="warn">mark_unread_chat_alt</mat-icon>
+
+
+
           <ul
             class="dropdown-menu dropdown-menu-end"
             aria-labelledby="navbarDropdownMenuLink"
@@ -122,8 +102,7 @@
               <a class="dropdown-item" href="#">Logout</a>
             </li>
           </ul>
-        </li>
-      </ng-container>
+      </div>
     </ul>
 
   </div>

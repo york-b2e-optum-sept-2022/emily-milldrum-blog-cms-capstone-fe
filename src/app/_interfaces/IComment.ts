@@ -1,7 +1,5 @@
 import {IAccount} from "./IAccount";
-import {IPost} from "./IPost";
 
-//todo fix post
 export interface IComment {
   id?: number,
   author: IAccount,

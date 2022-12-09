@@ -1,24 +1,23 @@
-<div class="card text-center" id="post-list">
-<div class="container" *ngIf="post">
-
-  <div class="date"><img class="profilePic" src="{{post.author.profilePic}}"
-                         alt="{{post.author.fName}} {{post.author.lName}} picture">
-    <h5 class="authorName"> {{post.author.fName}} {{post.author.lName}}
-      //   {{post.createDate | date  :'medium' }}
-      <ng-container *ngIf="post.updateDate">//  Updated: {{post.updateDate | date  :'medium' }}    </ng-container>
-
-    </h5>
-
-     </div>
-
-  <h3 class="postTitle" (click)="viewPost()">{{post.title}}</h3>
+<div class="card text-center" id="post-list" (click)="viewPost()">
+  <div class="container" *ngIf="post">
 
 
-  <!--  class="card-footer text-muted"  <div class="card-header"></div>-->
-  <div class="card-body">
-    <p class="card-text">
-      {{bodyTrim}}
-    </p>
+    <ng-container *ngIf="post.author.profilePic == null">
+      <mat-icon class="profilePic" aria-hidden="false" (click)="profile()">account_circle</mat-icon>
+    </ng-container>
+    <ng-container *ngIf="post.author.profilePic != null">
+      <img class="profilePic" src="{{post.author.profilePic}}" (click)="profile()"
+           alt="{{post.author.fName}} {{post.author.lName}} picture">
+    </ng-container>
+    <div class="post-details">
+      <h5 class="authorName"> {{post.author.fName}} {{post.author.lName}}
+        //   {{post.createDate | date  :'medium' }}
+        <ng-container *ngIf="post.updateDate">// Updated: {{post.updateDate | date  :'medium' }}    </ng-container>
+        <h3 class="post-title">{{post.title}}</h3>
+      </h5>
+
+    </div>
+
+    <div class="card-header">{{bodyTrim}}</div>
   </div>
-</div>
 </div>

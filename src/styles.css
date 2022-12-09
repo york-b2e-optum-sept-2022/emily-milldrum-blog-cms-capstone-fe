@@ -2,7 +2,7 @@
 
 html, body {
   height: 100%;
-  background-color: darkolivegreen;
+  background-color: darkslateblue;
   background-image: url("https://static.vecteezy.com/system/resources/previews/007/819/673/original/illustration-design-of-city-building-silhouette-background-at-night-with-shining-moon-and-stars-free-vector.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -56,21 +56,26 @@ body {
   overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
 }
 
-.profilePic {
+.rounding, .profilePic, .profilePicBig{
   border-radius: 50%;
+}
+.profilePic, #align-left{
   width: 75px;
   height: 75px;
   float: left;
 }
+
 .profilePicBig {
-  border-radius: 50%;
   width: 300px;
   height: 300px;
   float: left;
 }
 
+.post-body{
+  text-align: left;
+}
 
-.centering {
+.centering{
   padding-top: 2rem;
   display: flex;
   justify-content: center;
@@ -80,22 +85,26 @@ body {
   font-variant: small-caps;
 }
 
-
 #post-list, #pm-list, #message-list{
   margin: 3rem;
   padding: 3rem;
 }
-.date{
+
+.post-details {
   margin: .25rem;
   color: darkgrey;
   font-size: small;
   font-variant: small-caps;
 }
-#comment,.comment{
+
+#comment, .comment .sidebar-spacing {
   margin: 1rem;
   padding: 1rem;
 }
-.comment{
+.sidebar-spacing{
+  margin: 1.5rem;
+}
+.comment  {
   margin: 1rem;
   padding: 1rem;
 }
@@ -110,27 +119,32 @@ body {
   padding: 1rem;
 }
 
-.date {
+.post-details {
   justify-self: flex-start;
-  top-padding: 3rem;
-  left-padding: 3rem;
+  padding-top: 3rem;
+  padding-left: 3rem;
 }
 
 .authorName {
   justify-self: flex-start;
-  left-padding: 3rem;
+  padding-left: 3rem;
 }
 
-
-#title-style {
-  mix-blend-mode: multiply;
-  font-family: Georgia, serif;
-  font-size: xxx-large;
+.white-font, .white-icon, #title-style {
   color: white;
+}
+
+.white-font, #title-style {
+  font-family: Georgia, serif;
   font-variant: small-caps;
 }
 
-.postTitle {
+#title-style {
+  mix-blend-mode: multiply;
+  font-size: xxx-large;
+}
+
+.post-title {
   padding-top: 2rem;
   display: flex;
   justify-content: center;
@@ -138,4 +152,9 @@ body {
   font-size: large;
   color: darkslategrey;
   font-variant: small-caps;
+  text-align: justify;
+}
+
+#error-message, .error-message {
+  color: chocolate;
 }

@@ -66,20 +66,20 @@ export class HttpService {
   }
 
   addComment(comment: ICommentNew) {
-    return this.httpClient.post<IPost>('http://localhost:8080/api/comment/', comment);
+    return this.httpClient.post<IComment>('http://localhost:8080/api/comment/', comment);
   }
 
   updateComment(comment: IComment) {
     return this.httpClient.put<IComment>('http://localhost:8080/api/comment/', comment)
   }
 
-  createChat(newChat: IChatNew) {
-    return this.httpClient.post<IChat>('http://localhost:8080/api/chat/', newChat);
-  }
-
-  getChat(newChat: IChatNew) {
-    return this.httpClient.post<IChat>('http://localhost:8080/api/getChat/', newChat);
-  }
+  // createChat(newChat: IChatNew) {
+  //   return this.httpClient.post<IChat>('http://localhost:8080/api/chat/', newChat);
+  // }
+  //
+  // getChat(newChat: IChatNew) {
+  //   return this.httpClient.post<IChat>('http://localhost:8080/api/getChat/', newChat);
+  // }
 
   sendMsg(newMessage: IMessage) {
     return this.httpClient.post<IMessage>('http://localhost:8080/api/msg/', newMessage);

@@ -86,7 +86,8 @@ export class PostDetailsComponent {
     this.mainService.$state.next(STATE.postInput)
   }
 
-  viewPost() {
-
+  profile() {
+    this.accountService.$viewAccount.next(this.account);
+    this.mainService.$state.next(STATE.profile)
   }
 }

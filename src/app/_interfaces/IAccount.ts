@@ -5,9 +5,6 @@ export interface IAccount {
   lName: string,
   password: string,
   profilePic: string,
-  //todo
-  // posts?: IPost[],
-// comments?: IComments[]
 }
 
 export interface IAccountLogin {

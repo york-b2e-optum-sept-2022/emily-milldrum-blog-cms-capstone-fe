@@ -1,7 +1,10 @@
 export enum ERROR {
 //error messages
 
+  HTTP_ERROR='ERROR: There was an error connecting to the server',
+
   //login
+
   LOGIN_INVALID = "ERROR: Login is invalid",
   LOGIN_BLANK = "ERROR: Please fill in both login fields",
   LOGIN_HTTP_ERROR = "ERROR: Unable to login, try again",
@@ -22,10 +25,16 @@ export enum ERROR {
   POST_NULL = 'ERROR: There was an issue loading this post. Please try again later.',
   POST_ACCOUNT_NULL = 'ERROR: Select account is not valid.',
   POST_HTTP_ERROR= 'ERROR: There was an error with the server. Please try again later.',
+  POST_TITLE_EMPTY= 'ERROR: Post title must not be empty',
+  POST_BODY_EMPTY= 'ERROR: Post body must not be empty',
 
   //comment
   COMMENT_BLANK =  'ERROR: Comment is blank',
   COMMENT_NULL = 'ERROR: Comment is null',
+  COMMENT_ERROR= 'ERROR: There was an error posting this comment',
   COMMENT_HTTP_ERROR = 'ERROR: There was an error with the server. Please try again later.',
+
+  //message
+  MESSAGE_NULL = 'ERROR: Something went wrong'
 
 }

@@ -12,6 +12,7 @@ export class PostListComponent {
   postList: IPost[] = [];
   errorMessage: string | null = null;
   destroy$ = new Subject();
+  searchText = "";
 
   constructor(private postService: PostService) {
     this.postService.$postList.pipe(takeUntil(this.destroy$)).subscribe(
@@ -33,5 +34,11 @@ export class PostListComponent {
   ngOnDestroy(): void {
     this.destroy$.next(null);
     this.destroy$.complete();
+  }
+
+
+  onSearchTextChange(text: string){
+    this.postService.onSearchTextChange(text);
+    console.log(text)
   }
 }

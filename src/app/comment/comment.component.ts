@@ -5,6 +5,7 @@ import {IAccount} from "../_interfaces/IAccount";
 import {MainService} from "../_services/main.service";
 import {AccountService} from "../_services/account.service";
 import {CommentService} from "../_services/comment.service";
+import {STATE} from "../_enums/STATE";
 
 @Component({
   selector: 'app-comment',
@@ -13,7 +14,7 @@ import {CommentService} from "../_services/comment.service";
 })
 export class CommentComponent {
 
-  //todo IComment error here
+  //TODO IComment error here
   @Input() comment!: any;
 
   //@Input() comment: IComment | null = null;
@@ -57,5 +58,10 @@ export class CommentComponent {
   onUpdate() {
     this.isUpdating = true; //comment-input component for input
     this.commentService.$selectedComment.next(this.comment)
+  }
+
+  profile() {
+    this.accountService.$viewAccount.next(this.account);
+    this.mainService.$state.next(STATE.profile)
   }
 }

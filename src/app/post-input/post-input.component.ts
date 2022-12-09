@@ -22,10 +22,10 @@ export class PostInputComponent {
 
 
   constructor(private postService: PostService, private mainService: MainService, private accountService: AccountService) {
-    // this.postService.$postInputError.pipe(takeUntil(this.destroy$)).subscribe(
-    //   dt => {this.errMsg = dt
-    //   }
-    // )
+    this.postService.$postError.pipe(takeUntil(this.destroy$)).subscribe(
+      dt => {this.errorMessage = dt
+      }
+    )
 
     this.postService.$selectedPost.pipe(takeUntil(this.destroy$)).subscribe(
       dt => {this.post = dt
@@ -49,7 +49,6 @@ export class PostInputComponent {
 
   onCreate() {
     this.postService.createPost(this.title, this.body, this.account)
-
   }
 
   onCancel() {

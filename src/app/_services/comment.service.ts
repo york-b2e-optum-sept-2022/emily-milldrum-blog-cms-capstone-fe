@@ -29,25 +29,22 @@ export class CommentService {
     this.destroy$.complete();
   }
 
-  addComment(comment: string) {
-    //TODO something is wrong here
-    //
-    // duplicating addded, but adding 1 to backend.. front end problem
+  addComment(comment: string): boolean {
     if (comment == "" || comment == null || comment == undefined)
     {
       this.$commentError.next(ERROR.COMMENT_BLANK)
+      return false;
     } else {
-      this.postService.addComment(comment)
+      let value = this.postService.addComment(comment)
+      if(!value){
+        this.$commentError.next(ERROR.COMMENT_ERROR)
+        return false;
+      }
     }
+    return true;
   }
 
   deleteComment(comment: IComment) {
-
-
-   // this.httpService.deleteComment(comment.)
-
-    console.log('post service delete')
-
     if(comment.id == undefined){
       this.$commentError.next(ERROR.COMMENT_NULL)
       return;
@@ -56,13 +53,6 @@ export class CommentService {
       next: (post) => {
         this.postService.$selectedPost.next(post);
         this.$commentError.next(null)
-        //let list: IPost[] = [...this.$postList.getValue()];
-       // this..next(
-         // list.filter(inc => post.id !== inc.id)
-        // );
-        // this.$postError.next(null)
-        // this.main.$state.next(STATE.postList);
-        // this.$selectedPost.next(null);
       },
       error: (err) => {
         console.log(err)
@@ -71,25 +61,23 @@ export class CommentService {
     })
   }
 
-  updateComment(selectedComment: IComment) {
+  updateComment(selectedComment: IComment): boolean{
+    if(selectedComment.comment == ""){
+      this.$commentError.next(ERROR.COMMENT_BLANK);
+      return false;
+    }
     this.httpService.updateComment(selectedComment).pipe(first()).subscribe({
-      next: (comment) => {
-
+      next: () => {
         this.$commentError.next(null)
         this.$selectedComment.next(null)
         this.$isUpdating.next(false)
-        //let list: IPost[] = [...this.$postList.getValue()];
-        // this..next(
-        // list.filter(inc => post.id !== inc.id)
-        // );
-        // this.$postError.next(null)
-        // this.main.$state.next(STATE.postList);
-        // this.$selectedPost.next(null);
       },
       error: (err) => {
         console.log(err)
         this.$commentError.next(ERROR.COMMENT_HTTP_ERROR)
+        return false;
       }
     })
+    return true;
   }
 }

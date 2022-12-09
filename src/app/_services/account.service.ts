@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import {IAccount} from "../_interfaces/IAccount";
-import {IChat, IChatNew} from "../_interfaces/IChat";
 import {BehaviorSubject, first, Subject} from "rxjs";
 import {HttpService} from "./http.service";
 import {ERROR} from "../_enums/ERROR";
@@ -21,10 +20,11 @@ export class AccountService {
   $viewAccount = new BehaviorSubject<IAccount | null>(null); // for individual profile page
 
   $accountError = new BehaviorSubject<string | null>(null) //selected account errors
-  $accountListError  = new BehaviorSubject<string | null>(null); //account list error
+  $accountListError = new BehaviorSubject<string | null>(null); //account list error
 
   $selectedChat = new BehaviorSubject<IAccount | null>(null); // for chat system
   $messageList = new BehaviorSubject<IMessage[]>([]);
+  $messageError = new BehaviorSubject<string | null>(null); //message error
 
   constructor(private httpService: HttpService, private main: MainService) {
     this.getAllAccounts();
@@ -49,25 +49,23 @@ export class AccountService {
 
   loginSequence(account: IAccount){
     this.$loggedInAccount.next(account)
-    console.log("in login sequence changing state")
     this.main.$state.next(STATE.postList)
-    console.log(this.main.$state.getValue())
     this.$accountError.next(null);
   }
 
   registerAccount(regAccount: IAccount, passwordRepeat: string){
 
     // field validation
-    if (regAccount.email.length < 5 || !regAccount.email.includes('@') || !regAccount.email.includes('.')) {
-      this.$accountError.next(ERROR.REGISTER_INVALID_EMAIL_MESSAGE);
-      return;
-    }
     if (regAccount.fName.length < 1) {
       this.$accountError.next(ERROR.REGISTER_INVALID_FIRST_NAME_MESSAGE);
       return;
     }
     if (regAccount.lName.length < 1) {
       this.$accountError.next(ERROR.REGISTER_INVALID_LAST_NAME_MESSAGE);
+      return;
+    }
+    if (regAccount.email.length < 5 || !regAccount.email.includes('@') || !regAccount.email.includes('.')) {
+      this.$accountError.next(ERROR.REGISTER_INVALID_EMAIL_MESSAGE);
       return;
     }
     if (regAccount.password.length < 4) {
@@ -79,7 +77,12 @@ export class AccountService {
       return;
     }
 
-    //TODO check for existing account before reg
+    let value = this.accountList.find(act => act.email == regAccount.email) //check for existing account
+    if (value){
+      this.$accountError.next(ERROR.REGISTER_INVALID_EMAIL_UNIQUE_MESSAGE);
+      return;
+    }
+
     this.httpService.createAccount(regAccount).pipe(first()).subscribe({
       next: (account) => {
         console.log(account)
@@ -105,7 +108,8 @@ export class AccountService {
         }
       },
       error: () => {
-        this.$accountError.next(ERROR.REGISTER_HTTP_ERROR_MESSAGE);
+        //TODO send different errors from backend?
+        this.$accountError.next(ERROR.LOGIN_INVALID);
       }
     });
   }
@@ -116,33 +120,33 @@ export class AccountService {
     )
   }
 
-  findChat(account: IAccount, loggedInAccount: IAccount) {
-
-    //if chat between accounts exists, go to
-    //else if chat between accounts does not exist, create
-    let newChat: IChatNew = {accountList: [], messageList: []}
-    if(account.id !== undefined && loggedInAccount.id !== undefined){
-      newChat.accountList.push(account.id)
-      newChat.accountList.push(loggedInAccount.id)
-    }
-    console.log(newChat)
-   // this.httpService.createChat(newChat).pipe(first()).subscribe({
-    this.httpService.getChat(newChat).pipe(first()).subscribe({
-      next: (chat) => {
-          console.log(chat)
-        //set this $selectedChat to this chat
-        this.main.$state.next(STATE.chat)
-      },
-      error: () => {
-        this.$accountError.next(ERROR.REGISTER_HTTP_ERROR_MESSAGE);
-      }
-    });
-  }
+  // findChat(account: IAccount, loggedInAccount: IAccount) {
+  //
+  //   //if chat between accounts exists, go to
+  //   //else if chat between accounts does not exist, create
+  //   let newChat: IChatNew = {accountList: [], messageList: []}
+  //   if(account.id !== undefined && loggedInAccount.id !== undefined){
+  //     newChat.accountList.push(account.id)
+  //     newChat.accountList.push(loggedInAccount.id)
+  //   }
+  //   console.log(newChat)
+  //  // this.httpService.createChat(newChat).pipe(first()).subscribe({
+  //   this.httpService.getChat(newChat).pipe(first()).subscribe({
+  //     next: (chat) => {
+  //         console.log(chat)
+  //       //set this $selectedChat to this chat
+  //       this.main.$state.next(STATE.chat)
+  //     },
+  //     error: () => {
+  //       this.$accountError.next(ERROR.REGISTER_HTTP_ERROR_MESSAGE);
+  //     }
+  //   });
+  // }
 
 
   sendMessage(message: string, sender: IAccount | null, receiver: IAccount | null): boolean {
     if(sender == null || receiver == null){
-      //TODO ERROR
+      this.$messageError.next(ERROR.MESSAGE_NULL);
       return false;
     }
     let newMessage: IMessage = {message: message, receiver: receiver, sender: sender};
@@ -151,10 +155,10 @@ export class AccountService {
         let newList: IMessage[] = [...this.$messageList.getValue()]
         newList.push(message)
         this.$messageList.next(newList)
+        this.$messageError.next(null)
       },
       error: () => {
-        //TODO
-        this.$accountError.next(ERROR.REGISTER_HTTP_ERROR_MESSAGE);
+        this.$messageError.next(ERROR.HTTP_ERROR)
         return false;
       }
     });
@@ -164,19 +168,17 @@ export class AccountService {
 
   getMsg(sender: IAccount | null, receiver: IAccount | null) {
     if(sender == null || receiver == null || sender.id == undefined || receiver.id == undefined){
-      //TODO ERROR
+      this.$messageError.next(ERROR.MESSAGE_NULL);
       return;
     }
     // let request: IMessage = {receiver: receiver, sender: sender};
     this.httpService.getMsg(sender.id, receiver.id).pipe(first()).subscribe({
       next: (message) => {
-        console.log(message)
-        //reset errors TODO
+        this.$messageError.next(null);
         this.$messageList.next(message);
       },
       error: () => {
-        //TODO
-        this.$accountError.next(ERROR.REGISTER_HTTP_ERROR_MESSAGE);
+        this.$messageError.next(ERROR.HTTP_ERROR);
       }
     });
   }

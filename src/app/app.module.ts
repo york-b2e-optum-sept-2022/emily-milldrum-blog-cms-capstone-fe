@@ -18,6 +18,9 @@ import { CommentComponent } from './comment/comment.component';
 import { ChatListComponent } from './chat-list/chat-list.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ChatComponent } from './chat/chat.component';
+import {MatIconModule} from '@angular/material/icon';
+import {MatBadgeModule} from '@angular/material/badge';
+
 
 @NgModule({
   declarations: [
@@ -40,7 +43,9 @@ import { ChatComponent } from './chat/chat.component';
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    MatIconModule,
+    MatBadgeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

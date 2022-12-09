@@ -7,24 +7,21 @@ import {MainService} from "./main.service";
 import {ERROR} from "../_enums/ERROR";
 import {STATE} from "../_enums/STATE";
 import {AccountService} from "./account.service";
-import {IComment, ICommentNew} from "../_interfaces/IComment";
+import {ICommentNew} from "../_interfaces/IComment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostService {
 
-  //used for populating post list main page
-  private postList: IPost[] = [];
-  $postList = new BehaviorSubject<IPost[]>([])
-  //: Subject<IPost[]> = new Subject<IPost[]>();
-  //displays post list errors
-  $postListError = new BehaviorSubject<string | null>(null)
 
-  //for viewing individual post
-  $selectedPost = new BehaviorSubject<IPost | null>(null)
-  //individual post errors
-  $postError = new BehaviorSubject<string | null>(null)
+  private postList: IPost[] = [];  //used for populating post list main page
+  $postList = new BehaviorSubject<IPost[]>([])
+  $postListError = new BehaviorSubject<string | null>(null)  //displays post list errors
+
+
+  $selectedPost = new BehaviorSubject<IPost | null>(null)  //for viewing individual post
+  $postError = new BehaviorSubject<string | null>(null)  //individual post errors
 
   aut: IAccount = {id: 0, email: "", fName: "", lName: "", password: "", profilePic: ""}
   newPost: IPost = {author: this.aut, body: "", createDate: new Date(), title: "", comment: [], views: []};
@@ -45,7 +42,6 @@ export class PostService {
       next: data => {
         this.postList = data;
         this.$postList.next(this.postList);
-        console.log(this.postList)
         this.$postListError.next(null);
       },
       error: () => {
@@ -71,17 +67,27 @@ export class PostService {
     })
   }
 
-  createPost(title: string, body: string, account: IAccount | null) {
 
+  createPost(title: string, body: string, account: IAccount | null) {
     if (account == null || account.id == undefined) {
       this.$postError.next(ERROR.POST_ACCOUNT_NULL)
-    } else {
+      return
+    }
+    if (title == "" || title == null){
+      this.$postError.next(ERROR.POST_TITLE_EMPTY)
+      return
+    }
+    if (body == "" || body == null){
+      this.$postError.next(ERROR.POST_BODY_EMPTY)
+      return
+    }
+
       this.newPost.title = title;
       this.newPost.body = body;
       this.newPost.createDate = new Date();
       this.newPost.author = account;
       this.newPost.views = [];
-    }
+
     this.httpService.createPost(this.newPost).pipe(first()).subscribe({
       next: (post) => {
         let newList: IPost[] = [...this.postList];
@@ -94,39 +100,35 @@ export class PostService {
         this.$postError.next(ERROR.POST_HTTP_ERROR)
       }
     })
-    // this.$isCreating.next(false)
-    // this.resetAll()
-    // return true;
   }
 
-  updatePost(title: string, body: string) {
 
+  updatePost(title: string, body: string) {
     let post = this.$selectedPost.getValue();
     if (post !== null) {
       post.title = title;
       post.body = body;
       post.updateDate = new Date();
-      console.log(post)
+
       this.httpService.updatePost(post).pipe(first()).subscribe({
         next: (p) => {
           let newList: IPost[] = [...this.postList];
           newList.push(p);
           this.$postList.next(newList)
           this.$selectedPost.next(null)
+          this.$postError.next(null)
           this.main.$state.next(STATE.postList)
         },
-        error: (err) => {
-          console.log(err)
+        error: () => {
           this.$postError.next(ERROR.POST_HTTP_ERROR)
         }
       })
     } else {
-      //todo error
+      this.$postError.next(ERROR.POST_NULL)
     }
   }
 
   deletePost(post: IPost | null) {
-    console.log('post service delete')
     if (post !== null && post.id !== undefined) {
       this.httpService.deletePost(post.id).pipe(first()).subscribe({
         next: () => {
@@ -138,8 +140,7 @@ export class PostService {
           this.main.$state.next(STATE.postList);
           this.$selectedPost.next(null);
         },
-        error: (err) => {
-          console.log(err)
+        error: () => {
           this.$postError.next(ERROR.POST_HTTP_ERROR)
         }
       })
@@ -148,19 +149,7 @@ export class PostService {
     }
   }
 
-  addComment(comment: string) {
-
-    /*
-    todo
-    adding comment to backend but sloppy
-    need to render comment list on front end blog post
-     */
-    // console.log(comment)
-    // console.log(this.account)
-    // console.log(this.$selectedPost.getValue())
-    //make comment find author, post, create date,
-    //then run update post.
-    //let post = {...this.$selectedPost.getValue()};
+  addComment(comment: string): boolean { //errors handled in comment service
     let post = this.$selectedPost.getValue();
 
     if (this.account !== null && post !== null && post !== undefined) {
@@ -171,44 +160,22 @@ export class PostService {
           createDate: new Date(),
           comment: comment
         }
-
-        // if (post.comment !== undefined && post.comment !== null) {
-        //   post.comment.push(commentFormat)
-        // } else {//if no comments list, make empty array
-        //   post.comment = []
-        //   post.comment.push(commentFormat)
-
-          console.log(post)
-          //console.log(post.comments)
-          //   this.httpService.updatePost(post).pipe(first()).subscribe({
-          //     next: (p) => {
-          //       let newList: IPost[] = [...this.postList];
-          //       newList.push(p);
-          //       this.$postList.next(newList)
-          //       this.$selectedPost.next(p)
-          //       this.main.$state.next(STATE.post)
-          //     },
-          //     error: (err) => {
-          //       console.log(err)
-          //       this.$postError.next(ERROR.POST_HTTP_ERROR)
-          //     }
-          //   })
-          // }
           this.httpService.addComment(commentFormat).pipe(first()).subscribe({
-            next: (post) => {
-              this.$selectedPost.next(post)
-             // this.resetErrorMessages()
+            next: (c) => {
+              if(post && post.comment && post.author !== undefined){
+                post.comment.push(c)
+                this.$selectedPost.next(post)
+              }
             },
-            error: (err) => {
-              console.log(err)
-              //this.next(ERROR.STAGE_ADD_ERROR)
+            error: () => {
+              return false;
             }
           })
         }
       } else {
-        //todo
-        console.log('something wrong')
+        return false;
       }
+    return true;
     }
 
 
@@ -221,13 +188,11 @@ export class PostService {
   addView(id: number) {
 
     let post = this.$selectedPost.getValue();
-
     if (post !== null) {
       if(post.views == null){
         post.views = [];
       }
       post.views.push(id);
-      console.log(post)
       this.httpService.updatePost(post).pipe(first()).subscribe({
         next: (p) => {
           let newList: IPost[] = [...this.postList];
@@ -237,11 +202,8 @@ export class PostService {
         },
         error: (err) => {
           console.log(err)
-          this.$postError.next(ERROR.POST_HTTP_ERROR)
         }
       })
-    } else {
-      //todo error
     }
   }
 }

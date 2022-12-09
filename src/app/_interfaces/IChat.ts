@@ -1,4 +1,3 @@
-import {IAccount} from "./IAccount";
 import {IMessage} from "./IMessage";
 
 export interface IChat {
