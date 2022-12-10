@@ -154,6 +154,9 @@ export class AccountService {
       next: (message) => {
         let newList: IMessage[] = [...this.$messageList.getValue()]
         newList.push(message)
+
+        // @ts-ignore
+        newList.sort((b,a) =>  new Date(b.createDate) - new Date(a.createDate))
         this.$messageList.next(newList)
         this.$messageError.next(null)
       },
@@ -175,7 +178,10 @@ export class AccountService {
     this.httpService.getMsg(sender.id, receiver.id).pipe(first()).subscribe({
       next: (message) => {
         this.$messageError.next(null);
+        // @ts-ignore
+        message.sort((b,a) =>  new Date(b.createDate) - new Date(a.createDate))
         this.$messageList.next(message);
+
       },
       error: () => {
         this.$messageError.next(ERROR.HTTP_ERROR);
