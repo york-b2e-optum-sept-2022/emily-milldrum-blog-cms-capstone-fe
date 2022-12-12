@@ -1,4 +1,5 @@
 export enum ERROR {
+  //em
 //error messages
 
   HTTP_ERROR='ERROR: There was an error connecting to the server',
