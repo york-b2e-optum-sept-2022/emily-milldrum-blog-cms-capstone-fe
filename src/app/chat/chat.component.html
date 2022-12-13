@@ -1,20 +1,41 @@
 <div class="card text-center" id="message-list">
   <div class="container">
-<ng-container *ngIf="this.sender !== null && this.receiver !== null">
-  {{sender.fName}}{{sender.lName}} && {{receiver.fName}}{{receiver.lName}} chat
+    <ng-container *ngIf="this.sender !== null && this.receiver !== null">
+      <div class="post-title">{{sender.fName}} {{sender.lName}} & {{receiver.fName}} {{receiver.lName}}</div>
 
-  <div class="container">
-  <ng-container *ngFor="let message of messageList">
-    <div class="container">
-    {{message.sender.fName}} says {{message.message}}
-    </div>
-  </ng-container>
-  </div>
+      <div class="container">
+        <ng-container *ngFor="let message of messageList">
+          <div class="message-container">
 
-  <div id="error" role="alert">{{errorMessage}}</div>
-  <div class="input-group mb-3">
-    <input type="text" class="form-control" [(ngModel)]="message"><button class="input-group-text" (click)="sendMessage()">Send</button>
+            <ng-container *ngIf="message.sender.id !== sender.id">
+              <div class="post-details" *ngIf="message.sender.id !== sender.id">
+                <div class="profilePic"><img class="profilePic" src="{{message.sender.profilePic}}"></div>
+                {{message.sender.fName}} @ {{message.createDate | date: 'medium'}}
+              </div>
+
+              <div class="message">{{message.message}}</div>
+            </ng-container>
+
+
+            <ng-container *ngIf="message.sender.id == sender.id">
+              <div class="post-details" *ngIf="message.sender.id == sender.id">
+                <div class="profilePicRight"><img class="profilePic" src="{{message.sender.profilePic}}"></div>
+                {{message.sender.fName}} @ {{message.createDate | date: 'medium'}}
+              </div>
+
+              <div class="message">{{message.message}}</div>
+            </ng-container>
+          </div>
+
+
+        </ng-container>
+      </div>
+
+      <div id="error" role="alert">{{errorMessage}}</div>
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" [(ngModel)]="message">
+        <button class="input-group-text" (click)="sendMessage()">Send</button>
+      </div>
+    </ng-container>
   </div>
-</ng-container>
-</div>
 </div>

@@ -64,4 +64,5 @@ export class CommentComponent {
     this.accountService.$viewAccount.next(this.account);
     this.mainService.$state.next(STATE.profile)
   }
+
 }

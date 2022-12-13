@@ -65,6 +65,12 @@ body {
   float: left;
 }
 
+.profilePicRight{
+  width: 75px;
+  height: 75px;
+  float: right;
+}
+
 .profilePicBig {
   width: 300px;
   height: 300px;
@@ -84,6 +90,11 @@ body {
   color: darkslategrey;
   font-variant: small-caps;
 }
+.message-container{
+  align-items: center;
+  justify-content: center;
+}
+
 
 #post-list, #pm-list, #message-list{
   margin: 3rem;
@@ -105,7 +116,7 @@ body {
   margin: 1.5rem;
 }
 .comment  {
-  margin: 1rem;
+
   padding: 1rem;
 }
 
@@ -157,4 +168,16 @@ body {
 
 #error-message, .error-message {
   color: chocolate;
+}
+
+.column-picture{
+  width: 25%;
+  padding: 2rem;
+  float: left;
+}
+.column-content{
+  width: 75%;
+  padding: 2rem;
+  float: left;
+  word-wrap: break-word;
 }

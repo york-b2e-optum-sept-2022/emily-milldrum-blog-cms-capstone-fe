@@ -64,4 +64,8 @@ export class NavbarComponent {
     this.main.$state.next(STATE.profile)
     this.accountService.$viewAccount.next(this.account)
   }
+
+  chat() {
+    this.main.$state.next(STATE.chatList)
+  }
 }

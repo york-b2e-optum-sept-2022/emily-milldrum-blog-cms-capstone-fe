@@ -1,7 +1,9 @@
 <ng-container *ngIf="comment !== null && isUpdating == false">
-  <div class="input-group-text" id="comment">
-    <div class="container">
-      <div class="container" id="align-left">
+  <div class="row">
+    <div class="input-group-text" id="comment">
+
+
+      <div class="column-picture">
         <ng-container *ngIf="comment.author.profilePic == null" (click)="profile()">
           <mat-icon class="profilePic" aria-hidden="false">account_circle</mat-icon>
         </ng-container>
@@ -9,36 +11,39 @@
           <img class="profilePic" src="{{comment.author.profilePic}}"
                alt="{{comment.author.fName}} {{comment.author.lName}} picture">
         </ng-container>
-        <div class="container" >
+
+        <div class="container">
           <div class="authorName">
             {{comment.author.fName}} {{comment.author.lName}}
           </div>
-          <div class="post-details">
+          <div>
             @ {{comment.createDate | date:'short'}}
           </div>
-          <div *ngIf="comment.updateDate !== null" class="post-details">
+          <div *ngIf="comment.updateDate !== null">
             Updated: {{comment.updateDate | date:'short' }}
           </div>
         </div>
       </div>
 
 
+      <div class="column-content">
+        <div class="comment">
+          <h3>{{comment.comment}}</h3>
+        </div>
+      </div>
+      <ng-container *ngIf="this.account !== null">
+        <div *ngIf="comment.author.id == this.account.id" class="modify-buttons">
+          <button class="btn btn-light" (click)="onUpdate()">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button class="btn btn-light" (click)="onDelete()">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
 
-    <div class="comment">
-      <h3>{{comment.comment}}</h3>
-    </div>
-  </div>
-  <ng-container *ngIf="this.account !== null">
-    <div *ngIf="comment.author.id == this.account.id" class="modify-buttons">
-      <button class="btn btn-light" (click)="onUpdate()">
-        <mat-icon>edit</mat-icon>
-      </button>
-      <button class="btn btn-light" (click)="onDelete()">
-        <mat-icon>delete</mat-icon>
-      </button>
-    </div>
 
-  </ng-container>
+      </ng-container>
+    </div>
   </div>
 </ng-container>
 

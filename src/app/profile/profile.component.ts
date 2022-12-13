@@ -16,6 +16,8 @@ export class ProfileComponent {
   errorMessage: string | null = null;
   postList: IPost[] = [];
   account: IAccount | null = null;
+  editing: boolean = false;
+  profilePic: string = "";
 
 
 
@@ -48,13 +50,20 @@ ngOnInit(): void {
       this.postService.getPostsByAuthor(this.account.id);
     }
 
-
-
 }
 
 
 ngOnDestroy(): void {
     this.destroy$.next(null);
     this.destroy$.complete();
+  }
+
+  edit() {
+    console.log('edit profile')
+    this.editing = true;
+  }
+
+  cancelEdit() {
+    this.editing = false;
   }
 }

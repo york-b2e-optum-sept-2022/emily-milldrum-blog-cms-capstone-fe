@@ -1,12 +1,46 @@
-<div class="card text-center" id="post-list">
-  <div class="container" *ngIf="account !== null">
-    <img class="profilePicBig" src="{{account.profilePic}}"
-         alt="{{account.fName}} {{account.lName}} picture">
-    <h5 class="authorName"> {{account.fName}} {{account.lName}}
-    </h5>
-    {{account.fName}} {{account.lName}}
+<ng-container *ngIf="!editing && this.account != null">
+  <div class="card text-center" id="post-list">
+    <div class="container" *ngIf="account !== null">
+      <img class="profilePicBig" src="{{account.profilePic}}"
+           alt="{{account.fName}} {{account.lName}} picture">
+      <h2 class="authorName"> {{account.fName}} {{account.lName}}
+      </h2>
+      <button (click)="edit()">Edit</button>
+    </div>
   </div>
-</div>
+</ng-container>
+
+<ng-container *ngIf="editing && this.account != null">
+  <div class="card text-center">
+    <div class="row">
+      <div class="column-picture">
+        <div class="container" *ngIf="account !== null">
+          <img class="profilePicBig" src="{{account.profilePic}}"
+               alt="{{account.fName}} {{account.lName}} picture">
+
+
+        </div>
+      </div>
+      <div class="column-content">
+        <h5 class="authorName">
+        <div class="input-group mb-3">
+          <span class="input-group-text">IMG URL</span>
+          <input type="text" class="form-control" [(ngModel)]="account.profilePic">
+        </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text">First Name</span>
+            <input type="text" class="form-control" [(ngModel)]="account.fName">
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text">Last Name</span>
+            <input type="text" class="form-control" [(ngModel)]="account.lName">
+          </div>
+        </h5>
+        <button (click)="cancelEdit()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</ng-container>
 
 <app-post
   *ngFor="let post of postList"
