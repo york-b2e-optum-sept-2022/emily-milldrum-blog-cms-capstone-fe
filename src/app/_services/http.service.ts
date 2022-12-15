@@ -74,4 +74,8 @@ export class HttpService {
   getMsg(senderId: number, receiverId: number) {
     return this.httpClient.get<IMessage[]>(`http://localhost:8080/api/msg?sender=${senderId}&receiver=${receiverId}`);
   }
+
+  updateAccount(account: IAccount) {
+    return this.httpClient.put<IAccount>('http://localhost:8080/api/account/', account)
+  }
 }

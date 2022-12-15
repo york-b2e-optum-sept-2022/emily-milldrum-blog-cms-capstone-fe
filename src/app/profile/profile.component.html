@@ -5,7 +5,9 @@
            alt="{{account.fName}} {{account.lName}} picture">
       <h2 class="authorName"> {{account.fName}} {{account.lName}}
       </h2>
-      <button (click)="edit()">Edit</button>
+      <ng-container *ngIf="this.loggedIn != null">
+      <button *ngIf="account.id == loggedIn.id" class="btn btn-light" (click)="edit()">Edit</button>
+      </ng-container>
     </div>
   </div>
 </ng-container>
@@ -24,24 +26,29 @@
       <div class="column-content">
         <h5 class="authorName">
         <div class="input-group mb-3">
+
           <span class="input-group-text">IMG URL</span>
-          <input type="text" class="form-control" [(ngModel)]="account.profilePic">
+          <input type="text" class="form-control" [(ngModel)]="profilePic">
         </div>
           <div class="input-group mb-3">
             <span class="input-group-text">First Name</span>
-            <input type="text" class="form-control" [(ngModel)]="account.fName">
+            <input type="text" class="form-control" [(ngModel)]="fName">
           </div>
           <div class="input-group mb-3">
             <span class="input-group-text">Last Name</span>
-            <input type="text" class="form-control" [(ngModel)]="account.lName">
+            <input type="text" class="form-control" [(ngModel)]="lName">
+
           </div>
+
         </h5>
-        <button (click)="cancelEdit()">Cancel</button>
+        <div class="error-message">{{acctErrorMessage}}</div>
+        <button class="btn btn-light" (click)="updateProfile()">Save Changes</button>
+        <button class="btn btn-light" (click)="cancelEdit()">Cancel</button>
       </div>
     </div>
   </div>
 </ng-container>
-
+<div class="error-message">{{errorMessage}}</div>
 <app-post
   *ngFor="let post of postList"
   [post]="post"

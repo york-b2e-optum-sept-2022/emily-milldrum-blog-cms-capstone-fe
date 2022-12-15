@@ -9,12 +9,14 @@
   <ng-container *ngFor="let account of accountList">
     <div class="accountList">
       <div class="container">
-        {{account.fName}} {{account.lName}}
+
+        <span class="accountList">{{account.fName}} {{account.lName}}</span>
         <ng-container *ngIf="loggedInAccount !== null && loggedInAccount.id !== undefined">
         <button *ngIf="account.id !== this.loggedInAccount.id" class="btn btn-light" (click)="privateMsg(account)">PM</button>
         </ng-container>
-        <button class="btn btn-light" (click)="viewProfile(account)">View Profile</button>
+          <button class="btn btn-light" (click)="viewProfile(account)">View Profile</button>
       </div>
     </div>
   </ng-container>
+
 </div>

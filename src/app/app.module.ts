@@ -20,6 +20,9 @@ import { ProfileComponent } from './profile/profile.component';
 import { ChatComponent } from './chat/chat.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatBadgeModule} from '@angular/material/badge';
+import {MatListModule} from "@angular/material/list";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatMenuModule} from "@angular/material/menu";
 
 
 @NgModule({
@@ -45,7 +48,10 @@ import {MatBadgeModule} from '@angular/material/badge';
     FormsModule,
     NgbModule,
     MatIconModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatListModule,
+    MatToolbarModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

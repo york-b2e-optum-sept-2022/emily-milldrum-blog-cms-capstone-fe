@@ -188,4 +188,25 @@ export class AccountService {
       }
     });
   }
+
+  updateAccount(account: IAccount | null): boolean {
+    //validate fname,lname,imgurl
+    if(account == null){
+      this.$accountError.next(ERROR.ACCOUNT_NULL)
+      return false;
+    }
+
+    this.httpService.updateAccount(account).pipe(first()).subscribe({
+      next: (act) => {
+        this.$accountError.next(null);
+        this.$loggedInAccount.next(act);
+        this.getAllAccounts()
+      },
+      error: () => {
+        this.$accountError.next(ERROR.HTTP_ERROR);
+        return false;
+      }
+    });
+    return true;
+  }
 }

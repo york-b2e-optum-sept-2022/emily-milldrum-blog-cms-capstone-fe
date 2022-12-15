@@ -2,7 +2,11 @@ export enum ERROR {
   //em
 //error messages
 
+
   HTTP_ERROR='ERROR: There was an error connecting to the server',
+
+  //accocunt
+  ACCOUNT_NULL = "ERROR: Account does not exist",
 
   //login
 
@@ -36,6 +40,6 @@ export enum ERROR {
   COMMENT_HTTP_ERROR = 'ERROR: There was an error with the server. Please try again later.',
 
   //message
-  MESSAGE_NULL = 'ERROR: Something went wrong'
+  MESSAGE_NULL = 'ERROR: Something went wrong',
 
 }

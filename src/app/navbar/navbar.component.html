@@ -1,7 +1,6 @@
 <!-- Sidebar -->
 <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse">
   <div class="position-sticky">
-    <!-- Search form -->
     <div class="sidebar-spacing">
       <div class="card text-center">
         <div ><span class="centering">Navigation</span></div>
@@ -37,18 +36,6 @@
 <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light fixed-top">
   <!-- Container wrapper -->
   <div class="container-fluid">
-    <!-- Toggle button -->
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-mdb-toggle="collapse"
-      data-mdb-target="#sidebarMenu"
-      aria-controls="sidebarMenu"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <i class="fas fa-bars"></i>
-    </button>
 
     <!-- Brand -->
     <a class="navbar-brand" id="title-style" (click)="home()">
@@ -63,11 +50,13 @@
     <ul class="navbar-nav ms-auto d-flex flex-row">
       <!-- Notifications -->
 
+      <!-- Avatar -->
       <div *ngIf="account !== null">
-        <div (click)="profile()">
+        <div>
           <li id="navbar">
+          <li  [matMenuTriggerFor]="belowMenu"><span class="white-font">
+          {{account.fName}} {{account.lName}}</span>
 
-          <li class="white-font">{{account.fName}} {{account.lName}}
 
             <ng-container *ngIf="account.profilePic == null">
               <mat-icon class="white-icon">account_circle</mat-icon>
@@ -81,16 +70,19 @@
                 alt="Avatar"
                 loading="lazy"
               />
-            </ng-container>
-        </div>
-        <div (click)="chat()">
-<!--         for adding # of notfications matBadge="3"-->
-          <mat-icon class="white-icon"matBadgeColor="warn">mark_unread_chat_alt</mat-icon>
-          </div>
+            </ng-container><!--         for adding # of notfications matBadge="3"-->
+          <mat-icon class="white-icon" (click)="chat()">mark_unread_chat_alt</mat-icon>
+  </div>
+
+
+        <mat-menu #belowMenu="matMenu" yPosition="below">
+          <button mat-menu-item (click)="profile()">My Profile</button>
+          <button mat-menu-item (click)="logout()">Logout</button>
+        </mat-menu>
+
+
       </div>
     </ul>
 
   </div>
-  <!-- Container wrapper -->
 </nav>
-<!-- Navbar -->
