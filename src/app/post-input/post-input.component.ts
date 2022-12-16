@@ -6,6 +6,7 @@ import {PostService} from "../_services/post.service";
 import {MainService} from "../_services/main.service";
 import {AccountService} from "../_services/account.service";
 import {STATE} from "../_enums/STATE";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-post-input',
@@ -21,7 +22,8 @@ export class PostInputComponent {
   body: string = ""
 
 
-  constructor(private postService: PostService, private mainService: MainService, private accountService: AccountService) {
+  constructor(private postService: PostService, private mainService: MainService, private accountService: AccountService,
+              private dialogRef: MatDialog) {
     this.postService.$postError.pipe(takeUntil(this.destroy$)).subscribe(
       dt => {this.errorMessage = dt
       }
@@ -48,7 +50,10 @@ export class PostInputComponent {
   }
 
   onCreate() {
-    this.postService.createPost(this.title, this.body, this.account)
+    let value = this.postService.createPost(this.title, this.body, this.account)
+    if(value){
+      this.dialogRef.closeAll();
+    }
   }
 
   onCancel() {
@@ -59,7 +64,5 @@ export class PostInputComponent {
     this.postService.updatePost(this.title, this.body)
   }
 
-  closeThis() {
 
-  }
 }

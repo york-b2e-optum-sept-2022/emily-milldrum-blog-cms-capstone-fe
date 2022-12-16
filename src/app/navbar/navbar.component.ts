@@ -1,10 +1,13 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {STATE} from "../_enums/STATE";
 import {MainService} from "../_services/main.service";
 import {AccountService} from "../_services/account.service";
 import {Subject, takeUntil} from "rxjs";
 import {IAccount} from "../_interfaces/IAccount";
 import {PostService} from "../_services/post.service";
+import {MatMenuTrigger} from "@angular/material/menu";
+import {MatDialog} from "@angular/material/dialog";
+import {PostInputComponent} from "../post-input/post-input.component";
 
 @Component({
   selector: 'app-navbar',
@@ -18,15 +21,24 @@ export class NavbarComponent {
   errMsg: string | null = null;
   account: IAccount | null = null;
   searchText = "";
+  // @ts-ignore
+  @ViewChild('menuTrigger') menuTrigger: MatMenuTrigger;
+
 
 
   constructor(private main: MainService, private accountService: AccountService,
-              private postService: PostService) {
+              private postService: PostService, public dialog: MatDialog) {
     this.accountService.$loggedInAccount.pipe(takeUntil(this.destroy$)).subscribe(
       dt => {this.account = dt
       }
     )
   }
+
+  openDialog() {
+    this.postService.$selectedPost.next(null)
+    this.dialog.open(PostInputComponent);
+  }
+
 
   ngOnDestroy(): void {
     this.destroy$.next(null);
@@ -69,3 +81,4 @@ export class NavbarComponent {
     this.main.$state.next(STATE.chatList)
   }
 }
+export class DialogFromMenuExampleDialog {}

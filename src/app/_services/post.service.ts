@@ -9,6 +9,7 @@ import {STATE} from "../_enums/STATE";
 import {AccountService} from "./account.service";
 import {ICommentNew} from "../_interfaces/IComment";
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -68,18 +69,18 @@ export class PostService {
   }
 
 
-  createPost(title: string, body: string, account: IAccount | null) {
+  createPost(title: string, body: string, account: IAccount | null): boolean {
     if (account == null || account.id == undefined) {
       this.$postError.next(ERROR.POST_ACCOUNT_NULL)
-      return
+      return false;
     }
     if (title == "" || title == null){
       this.$postError.next(ERROR.POST_TITLE_EMPTY)
-      return
+      return false;
     }
     if (body == "" || body == null){
       this.$postError.next(ERROR.POST_BODY_EMPTY)
-      return
+      return false;
     }
 
       this.newPost.title = title;
@@ -98,8 +99,10 @@ export class PostService {
       error: (err) => {
         console.log(err)
         this.$postError.next(ERROR.POST_HTTP_ERROR)
+        return false;
       }
     })
+    return true;
   }
 
 
@@ -181,7 +184,7 @@ export class PostService {
 
   onSearchTextChange(text: string) {
     this.$postList.next(
-      this.postList.filter(post => post.title.toUpperCase().includes(text.toUpperCase()))
+      this.postList.filter(post => post.title.toUpperCase().includes(text.toUpperCase()) || post.body.toUpperCase().includes(text.toUpperCase()))
     )
   }
 

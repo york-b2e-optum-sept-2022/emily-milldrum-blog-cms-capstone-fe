@@ -1,56 +1,46 @@
-<div class="card text-center" id="post-list">
-  <div class="container">
-    <div class="card-body">
-      <div *ngIf="!post" class="form-check d-flex justify-content-center">
-        <h3 class="text-center pt-3">Create Post</h3>
-      </div>
-      <div *ngIf="post" class="form-check d-flex justify-content-center">
-        <h3 class="text-center pt-3">Update Post</h3>
-      </div>
-      <div class="input-group mb-3">
-        <span class="input-group-text">Title</span>
-        <input type="text" class="form-control" [(ngModel)]="title">
-      </div>
 
-      <div class="input-group mb-3">
-        <div class="form-floating">
+  <div class="card text-center" id="post-list">
+    <div class="container">
+      <div class="card-body">
+        <div *ngIf="!post" class="form-check d-flex justify-content-center" >
+          <h3 class="text-center pt-3" mat-dialog-title>Create Post</h3>
+        </div>
+        <div *ngIf="post" class="form-check d-flex justify-content-center">
+          <h3 class="text-center pt-3" mat-dialog-title>Update Post</h3>
+        </div><mat-dialog-content>
+        <div class="input-group mb-3">
+          <span class="input-group-text">Post Title</span>
+          <input type="text" class="form-control" [(ngModel)]="title">
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="form-floating">
           <textarea [(ngModel)]="body" class="form-control" placeholder="Post goes here"
                     id="bodyInput" style="height: 100px"></textarea>
+          </div>
         </div>
-      </div>
-      <!--        <div class="input-group mb-3"> todo hide post & modal option for new post-->
-      <!--          <span class="input-group-text">Img URL</span>-->
-      <!--          <input type="text" class="form-control" [(ngModel)]="imgUrl">-->
-      <!--        </div>-->
+        <div class="error-message">{{errorMessage}}</div>
+        <div *ngIf="!post">
+          <button class="btn btn-light" (click)="onCreate()">Create</button>
+        </div>
+        <div *ngIf="post">
 
-      <!--        <div>-->
-      <!--          <input class="form-check-input" type="checkbox" id="finishedCheckbox" [(ngModel)]="hide">-->
-      <!--          <label class="form-check-label" for="finishedCheckbox">-->
-      <!--            <h5>Hide Post</h5>-->
-      <!--          </label>-->
-      <!--        </div>-->
+          <button class="btn btn-light" (click)="onUpdate()">Update</button>
+          <button class="btn btn-light" (click)="onCancel()">
+            <mat-icon>close</mat-icon>
+          </button>
 
-
-
-      <div class="error-message">{{errorMessage}}</div>
-      <div *ngIf="!post">
-        <button class="btn btn-light" (click)="onCreate()">Create</button>
-      </div>
-      <div *ngIf="post">
-
-        <button class="btn btn-light" (click)="onUpdate()">Update</button>
-        <button class="btn btn-light" (click)="onCancel()">
-          <mat-icon>close</mat-icon>
-        </button>
-
+        </div>
+      </mat-dialog-content>
       </div>
     </div>
   </div>
-<!--  <button *ngIf="!post" type="button" class="input-group-text" (click)="closeThis()" data-bs-dismiss="modal">-->
-<!--    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg"-->
-<!--         viewBox="0 0 16 16">-->
-<!--      <path-->
-<!--        d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>-->
-<!--    </svg>-->
-<!--  </button>-->
-</div>
+
+
+<ng-container *ngIf="!post">
+<mat-dialog-actions>
+  <div class="modify-buttons">
+  <button class="btn btn-light" mat-dialog-close="true">Close</button>
+  </div>
+</mat-dialog-actions>
+</ng-container>

@@ -4,27 +4,29 @@
       <div class="post-title">{{sender.fName}} {{sender.lName}} & {{receiver.fName}} {{receiver.lName}}</div>
 
       <div class="container">
+
         <ng-container *ngFor="let message of messageList">
+          <div class="row">
           <div class="message-container">
 
             <ng-container *ngIf="message.sender.id !== sender.id">
               <div class="post-details" *ngIf="message.sender.id !== sender.id">
-                <div class="profilePic"><img class="profilePic" src="{{message.sender.profilePic}}"></div>
-                {{message.sender.fName}} @ {{message.createDate | date: 'medium'}}
+            <img class="profilePic" src="{{message.sender.profilePic}}" alt="profile picture">
+              {{message.sender.fName}} @ {{message.createDate | date: 'medium'}}
               </div>
 
               <div class="message">{{message.message}}</div>
+
             </ng-container>
-
-
             <ng-container *ngIf="message.sender.id == sender.id">
               <div class="post-details" *ngIf="message.sender.id == sender.id">
-                <div class="profilePicRight"><img class="profilePic" src="{{message.sender.profilePic}}"></div>
-                {{message.sender.fName}} @ {{message.createDate | date: 'medium'}}
+               <div class="profilePicRight"><img class="profilePic" src="{{message.sender.profilePic}}" alt="profile picture"></div>
+            {{message.sender.fName}} @ {{message.createDate | date: 'medium'}}
               </div>
 
               <div class="message">{{message.message}}</div>
             </ng-container>
+          </div>
           </div>
 
 

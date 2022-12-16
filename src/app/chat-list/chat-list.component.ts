@@ -48,19 +48,12 @@ export class ChatListComponent {
 
   onSearchTextChange(text: string){
     this.accountService.onSearchTextChange(text);
-    console.log(text)
   }
 
   privateMsg(account: IAccount) {
     this.main.$state.next(STATE.chat)
     this.accountService.$selectedChat.next(account);
     this.accountService.getMsg(this.loggedInAccount, account);
-
-    console.log(account)
-    // if(account !== null && this.loggedInAccount !== null)
-    // {
-    //   this.accountService.findChat(account, this.loggedInAccount)
-    // }
   }
 
   viewProfile(account: IAccount) {

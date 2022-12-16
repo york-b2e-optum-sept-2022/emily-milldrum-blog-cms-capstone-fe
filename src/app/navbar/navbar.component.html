@@ -3,13 +3,12 @@
   <div class="position-sticky">
     <div class="sidebar-spacing">
       <div class="card text-center">
-        <div ><span class="centering">Navigation</span></div>
+        <div><span class="centering">Navigation</span></div>
 
         <div class="list-group list-group-flush mx-3 mt-4">
-
           <div class="nav-buttons"></div>
 
-          <div >
+          <div>
             <i class="fas fa-chart-area fa-fw me-3"></i><span> </span>
             <a href="#" class="list-group-item list-group-item-action py-2 ripple" (click)="home()">
               <i class="fas fa-chart-area fa-fw me-3"></i><span>Home</span>
@@ -17,12 +16,13 @@
             <a href="#" class="list-group-item list-group-item-action py-2 ripple" (click)="pm()">
               <i class="fas fa-chart-area fa-fw me-3"></i><span>Find People</span>
             </a>
-            <a href="#" class="list-group-item list-group-item-action py-2 ripple" (click)="post()">
-              <i class="fas fa-chart-area fa-fw me-3"></i><span>Post</span>
-            </a>
+
+            <button  class="list-group-item list-group-item-action py-2 ripple"  (click)="openDialog()">Post</button>
+
             <a href="#" class="list-group-item list-group-item-action py-2 ripple" (click)="logout()"
             ><i class="fas fa-lock fa-fw me-3"></i><span>Logout</span>
             </a>
+
           </div>
         </div>
 
@@ -54,12 +54,12 @@
       <div *ngIf="account !== null">
         <div>
           <li id="navbar">
-          <li  [matMenuTriggerFor]="belowMenu"><span class="white-font">
+          <li ><span class="white-font" [matMenuTriggerFor]="belowMenu">
           {{account.fName}} {{account.lName}}</span>
 
 
             <ng-container *ngIf="account.profilePic == null">
-              <mat-icon class="white-icon">account_circle</mat-icon>
+              <mat-icon class="white-icon" [matMenuTriggerFor]="belowMenu">account_circle</mat-icon>
             </ng-container>
 
             <ng-container *ngIf="account.profilePic != null">
@@ -69,10 +69,11 @@
                 height="40"
                 alt="Avatar"
                 loading="lazy"
+                [matMenuTriggerFor]="belowMenu"
               />
             </ng-container><!--         for adding # of notfications matBadge="3"-->
-          <mat-icon class="white-icon" (click)="chat()">mark_unread_chat_alt</mat-icon>
-  </div>
+            <mat-icon class="white-icon" (click)="chat()">mark_unread_chat_alt</mat-icon>
+        </div>
 
 
         <mat-menu #belowMenu="matMenu" yPosition="below">

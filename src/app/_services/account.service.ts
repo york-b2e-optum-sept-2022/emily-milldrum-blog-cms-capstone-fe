@@ -108,7 +108,6 @@ export class AccountService {
         }
       },
       error: () => {
-        //TODO send different errors from backend?
         this.$accountError.next(ERROR.LOGIN_INVALID);
       }
     });
@@ -116,33 +115,9 @@ export class AccountService {
 
   onSearchTextChange(text: string) {
     this.$accountList.next(
-      this.accountList.filter(acct => acct.fName.toUpperCase().includes(text.toUpperCase()))
+      this.accountList.filter(acct => acct.fName.toUpperCase().includes(text.toUpperCase()) || acct.lName.toUpperCase().includes(text.toUpperCase()))
     )
   }
-
-  // findChat(account: IAccount, loggedInAccount: IAccount) {
-  //
-  //   //if chat between accounts exists, go to
-  //   //else if chat between accounts does not exist, create
-  //   let newChat: IChatNew = {accountList: [], messageList: []}
-  //   if(account.id !== undefined && loggedInAccount.id !== undefined){
-  //     newChat.accountList.push(account.id)
-  //     newChat.accountList.push(loggedInAccount.id)
-  //   }
-  //   console.log(newChat)
-  //  // this.httpService.createChat(newChat).pipe(first()).subscribe({
-  //   this.httpService.getChat(newChat).pipe(first()).subscribe({
-  //     next: (chat) => {
-  //         console.log(chat)
-  //       //set this $selectedChat to this chat
-  //       this.main.$state.next(STATE.chat)
-  //     },
-  //     error: () => {
-  //       this.$accountError.next(ERROR.REGISTER_HTTP_ERROR_MESSAGE);
-  //     }
-  //   });
-  // }
-
 
   sendMessage(message: string, sender: IAccount | null, receiver: IAccount | null): boolean {
     if(sender == null || receiver == null){
@@ -170,16 +145,18 @@ export class AccountService {
 
 
   getMsg(sender: IAccount | null, receiver: IAccount | null) {
+
     if(sender == null || receiver == null || sender.id == undefined || receiver.id == undefined){
       this.$messageError.next(ERROR.MESSAGE_NULL);
       return;
     }
-    // let request: IMessage = {receiver: receiver, sender: sender};
     this.httpService.getMsg(sender.id, receiver.id).pipe(first()).subscribe({
       next: (message) => {
         this.$messageError.next(null);
         // @ts-ignore
         message.sort((b,a) =>  new Date(b.createDate) - new Date(a.createDate))
+        message.forEach(function (value){console.log(value)})
+
         this.$messageList.next(message);
 
       },
@@ -190,10 +167,17 @@ export class AccountService {
   }
 
   updateAccount(account: IAccount | null): boolean {
-    //validate fname,lname,imgurl
     if(account == null){
       this.$accountError.next(ERROR.ACCOUNT_NULL)
       return false;
+    }
+
+    if(account.fName == ""){
+      this.$accountError.next(ERROR.REGISTER_INVALID_FIRST_NAME_MESSAGE)
+    }
+
+    if(account.lName == ""){
+      this.$accountError.next(ERROR.REGISTER_INVALID_LAST_NAME_MESSAGE)
     }
 
     this.httpService.updateAccount(account).pipe(first()).subscribe({
