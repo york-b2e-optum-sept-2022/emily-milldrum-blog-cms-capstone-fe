@@ -9,6 +9,7 @@ export interface IComment {
   comment: string
 }
 
+
 export interface ICommentNew {
   id?: number,
   postId: number,

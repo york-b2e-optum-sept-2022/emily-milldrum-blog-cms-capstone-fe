@@ -5,7 +5,7 @@ export enum ERROR {
 
   HTTP_ERROR='ERROR: There was an error connecting to the server',
 
-  //accocunt
+  //account
   ACCOUNT_NULL = "ERROR: Account does not exist",
 
   //login
@@ -23,8 +23,8 @@ export enum ERROR {
   REGISTER_INVALID_PASSWORD_MATCH = "ERROR: Passwords do not match",
   REGISTER_HTTP_ERROR_MESSAGE = 'ERROR: Unable to create your account, please try again later',
 
-  //postlist
-  POSTLIST_HTTP_ERROR = 'ERROR: There was an error with the server. Please try again later.',
+  //post list
+  POST_LIST_HTTP_ERROR = 'ERROR: There was an error with the server. Please try again later.',
 
   //post
   POST_NULL = 'ERROR: There was an issue loading this post. Please try again later.',

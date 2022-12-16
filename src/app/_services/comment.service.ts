@@ -5,8 +5,6 @@ import {IAccount} from "../_interfaces/IAccount";
 import {PostService} from "./post.service";
 import {ERROR} from "../_enums/ERROR";
 import {HttpService} from "./http.service";
-import {IPost} from "../_interfaces/IPost";
-import {STATE} from "../_enums/STATE";
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +28,7 @@ export class CommentService {
   }
 
   addComment(comment: string): boolean {
-    if (comment == "" || comment == null || comment == undefined)
+    if (comment == "" || comment == null)
     {
       this.$commentError.next(ERROR.COMMENT_BLANK)
       return false;

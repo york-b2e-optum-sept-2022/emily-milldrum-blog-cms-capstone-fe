@@ -21,7 +21,6 @@ export class ChatListComponent {
   constructor(private accountService: AccountService, private main: MainService) {
     this.accountService.$accountList.pipe(takeUntil(this.destroy$)).subscribe(
       ls => {this.accountList = ls
-        console.log(this.accountList)
       }
     )
     this.accountService.$accountListError.pipe(takeUntil(this.destroy$)).subscribe(
@@ -57,7 +56,6 @@ export class ChatListComponent {
   }
 
   viewProfile(account: IAccount) {
-    console.log(account)
     this.accountService.$viewAccount.next(account)
     this.main.$state.next(STATE.profile)
   }

@@ -85,7 +85,6 @@ export class AccountService {
 
     this.httpService.createAccount(regAccount).pipe(first()).subscribe({
       next: (account) => {
-        console.log(account)
         this.loginSequence(account)
       },
       error: () => {
@@ -155,8 +154,6 @@ export class AccountService {
         this.$messageError.next(null);
         // @ts-ignore
         message.sort((b,a) =>  new Date(b.createDate) - new Date(a.createDate))
-        message.forEach(function (value){console.log(value)})
-
         this.$messageList.next(message);
 
       },

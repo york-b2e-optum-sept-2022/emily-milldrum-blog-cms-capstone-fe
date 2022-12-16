@@ -47,7 +47,6 @@ export class NavbarComponent {
 
   onSearchTextChange(text: string){
     this.postService.onSearchTextChange(text);
-    console.log(text)
   }
 
 

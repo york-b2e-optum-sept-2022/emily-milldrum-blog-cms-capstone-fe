@@ -17,7 +17,6 @@ export class PostListComponent {
   constructor(private postService: PostService) {
     this.postService.$postList.pipe(takeUntil(this.destroy$)).subscribe(
       ls => {this.postList = ls
-        console.log(this.postList)
       }
     )
     this.postService.$postListError.pipe(takeUntil(this.destroy$)).subscribe(
@@ -39,6 +38,5 @@ export class PostListComponent {
 
   onSearchTextChange(text: string){
     this.postService.onSearchTextChange(text);
-    console.log(text)
   }
 }

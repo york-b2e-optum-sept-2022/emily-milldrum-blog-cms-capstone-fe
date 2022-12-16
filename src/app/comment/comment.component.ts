@@ -6,6 +6,8 @@ import {MainService} from "../_services/main.service";
 import {AccountService} from "../_services/account.service";
 import {CommentService} from "../_services/comment.service";
 import {STATE} from "../_enums/STATE";
+import {IComment} from "../_interfaces/IComment";
+import {ERROR} from "../_enums/ERROR";
 
 @Component({
   selector: 'app-comment',
@@ -14,10 +16,10 @@ import {STATE} from "../_enums/STATE";
 })
 export class CommentComponent {
 
-  //TODO IComment error here
-  @Input() comment!: any;
+  //IComment error here
+  //@Input() comment!: any;
 
-  //@Input() comment: IComment | null = null;
+  @Input() comment: IComment | null = null;
 
 
   destroy$ = new Subject();
@@ -39,6 +41,9 @@ export class CommentComponent {
 
     this.accountService.$loggedInAccount.pipe(takeUntil(this.destroy$)).subscribe(
       dt => {this.account = dt
+        let test = {author: this.account, comment: "", createDate: new Date(), postId: 0};
+        console.log(test)
+
       }
     )
   }
@@ -52,6 +57,10 @@ export class CommentComponent {
 
 
   onDelete() {
+    if(this.comment == null){
+      this.commentService.$commentError.next(ERROR.COMMENT_ERROR);
+        return;
+    }
     this.commentService.deleteComment(this.comment);
   }
 

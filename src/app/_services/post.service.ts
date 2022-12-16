@@ -46,7 +46,7 @@ export class PostService {
         this.$postListError.next(null);
       },
       error: () => {
-        this.$postListError.next(ERROR.POSTLIST_HTTP_ERROR);
+        this.$postListError.next(ERROR.POST_LIST_HTTP_ERROR);
       }
     })
   }
@@ -59,11 +59,10 @@ export class PostService {
         this.postList.sort((a,b) =>  new Date(b.createDate) - new Date(a.createDate)
         )
         this.$postList.next(this.postList);
-        console.log(this.postList)
         this.$postListError.next(null);
       },
       error: () => {
-        this.$postListError.next(ERROR.POSTLIST_HTTP_ERROR);
+        this.$postListError.next(ERROR.POST_LIST_HTTP_ERROR);
       }
     })
   }

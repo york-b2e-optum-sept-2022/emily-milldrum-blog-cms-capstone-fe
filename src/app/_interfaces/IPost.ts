@@ -1,7 +1,6 @@
 import {IAccount} from "./IAccount";
+import {IComment} from "./IComment";
 
-class IComment {
-}
 
 export interface IPost {
   id?: number,
