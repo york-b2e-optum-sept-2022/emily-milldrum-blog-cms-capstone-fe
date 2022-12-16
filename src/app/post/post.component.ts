@@ -29,7 +29,7 @@ export class PostComponent {
 
   ngOnInit(){
     if(this.post !== null){
-      this.bodyTrim = this.post.body.slice(0,150)+'.... see more';
+      this.bodyTrim = this.post.body.slice(0,120)+' ... read more';
     }
   }
 

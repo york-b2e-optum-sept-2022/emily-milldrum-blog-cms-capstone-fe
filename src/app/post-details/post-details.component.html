@@ -8,14 +8,14 @@
       <img class="profilePic" src="{{post.author.profilePic}}" (click)="profile()"
            alt="{{post.author.fName}} {{post.author.lName}} picture">
     </ng-container>
-    <div class="post-details">
+    <span class="post-details">
       <h5 class="date">
         {{post.createDate | date  :'medium' }}
         <ng-container *ngIf="post.updateDate">// Updated: {{post.updateDate | date  :'medium' }}    </ng-container>
          <div class="container"> {{viewCount}} Unique view<ng-container *ngIf="viewCount > 1">s</ng-container></div>
         <h3 class="post-title">{{post.title}}</h3>
       </h5>
-    </div>
+    </span>
     <h5 class="authorName">by {{post.author.fName}} {{post.author.lName}}</h5>
     <div class="post-body">
       <p class="post-body">

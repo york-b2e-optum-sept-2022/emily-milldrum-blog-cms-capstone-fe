@@ -9,15 +9,17 @@
       <img class="profilePic" src="{{post.author.profilePic}}" (click)="profile()"
            alt="{{post.author.fName}} {{post.author.lName}} picture">
     </ng-container>
-    <div class="post-details">
+
+
+    <span class="post-details">
       <h5 class="authorName"> {{post.author.fName}} {{post.author.lName}}
         //   {{post.createDate | date  :'medium' }}
         <ng-container *ngIf="post.updateDate">// Updated: {{post.updateDate | date  :'medium' }}    </ng-container>
         <h3 class="post-title">{{post.title}}</h3>
       </h5>
 
-    </div>
-
+  </span>
     <div class="card-header">{{bodyTrim}}</div>
-  </div>
+
 </div>
+  </div>
