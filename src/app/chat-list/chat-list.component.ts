@@ -4,6 +4,9 @@ import {AccountService} from "../_services/account.service";
 import {IAccount} from "../_interfaces/IAccount";
 import {MainService} from "../_services/main.service";
 import {STATE} from "../_enums/STATE";
+import {ChatComponent} from "../chat/chat.component";
+import {MatDialog} from "@angular/material/dialog";
+import {MatCardModule} from '@angular/material/card';
 
 @Component({
   selector: 'app-pm-list',
@@ -18,7 +21,7 @@ export class ChatListComponent {
   searchText: string = "";
   loggedInAccount: IAccount | null = null;
 
-  constructor(private accountService: AccountService, private main: MainService) {
+  constructor(private accountService: AccountService, private main: MainService, public dialog: MatDialog) {
     this.accountService.$accountList.pipe(takeUntil(this.destroy$)).subscribe(
       ls => {this.accountList = ls
       }
@@ -50,8 +53,9 @@ export class ChatListComponent {
   }
 
   privateMsg(account: IAccount) {
-    this.main.$state.next(STATE.chat)
+    //this.main.$state.next(STATE.chat)
     this.accountService.$selectedChat.next(account);
+    this.dialog.open(ChatComponent);
     this.accountService.getMsg(this.loggedInAccount, account);
   }
 

@@ -1,8 +1,15 @@
 <ng-container *ngIf="!editing && this.account != null">
   <div class="card text-center" id="post-list">
     <div class="container" *ngIf="account !== null">
-      <img class="profilePicBig" src="{{account.profilePic}}"
-           alt="{{account.fName}} {{account.lName}} picture">
+            <ng-container *ngIf="account.profilePic == null">
+              <mat-icon>account_circle</mat-icon>
+            </ng-container>
+
+            <ng-container *ngIf="account.profilePic != null">
+              <img class="profilePicBig" src="{{account.profilePic}}"
+                   alt="{{account.fName}} {{account.lName}} picture">
+            </ng-container>
+
       <h2 class="authorName"> {{account.fName}} {{account.lName}}
       </h2>
       <ng-container *ngIf="this.loggedIn != null">

@@ -91,7 +91,7 @@ export class PostService {
     this.httpService.createPost(this.newPost).pipe(first()).subscribe({
       next: (post) => {
         let newList: IPost[] = [...this.postList];
-        newList.push(post);
+        newList.unshift(post);
         this.$postList.next(newList)
         this.main.$state.next(STATE.postList)
       },

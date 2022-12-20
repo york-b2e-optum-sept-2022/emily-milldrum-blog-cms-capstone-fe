@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit,OnDestroy {
   }
 
   ngOnInit(): void {
+    this.service.$accountError.next(null)
   }
 
   ngOnDestroy(): void {

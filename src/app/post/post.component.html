@@ -1,7 +1,7 @@
 <div class="card text-center" id="post-list" (click)="viewPost()">
   <div class="container" *ngIf="post">
 
-
+    <div class="card-medium">
     <ng-container *ngIf="post.author.profilePic == null">
       <mat-icon class="profilePic" aria-hidden="false" (click)="profile()">account_circle</mat-icon>
     </ng-container>
@@ -20,6 +20,7 @@
 
   </span>
     <div class="card-header">{{bodyTrim}}</div>
-
+    </div>
   </div>
+
 </div>

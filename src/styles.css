@@ -14,14 +14,23 @@ body {
   font-family: Georgia, serif;
 }
 
-/*.title {*/
-/*  color: darkmagenta*/
-/*}*/
+.card-small {
+  max-width: 550px;
+  padding-left: 5rem;
+  padding-right: 5rem;
+}
 
-/*.buttons {*/
-/*  color: rebeccapurple*/
-/*}*/
+.card-medium {
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
 
+#pm-list, #post-list {
+  display: flex;
+  padding: 3rem;
+  margin: 3rem;
+  align-items: center;
+}
 
 #sidebarMenu, #navbar-brand, #navbar, .logo, #logo {
 
@@ -45,6 +54,7 @@ body {
     width: 100%;
   }
 }
+
 .sidebar .active {
   box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
 }
@@ -58,16 +68,17 @@ body {
   overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
 }
 
-.rounding, .profilePic, .profilePicBig{
+.rounding, .profilePic, .profilePicBig {
   border-radius: 50%;
 }
-.profilePic, #align-left{
+
+.profilePic, #align-left {
   width: 75px;
   height: 75px;
   float: left;
 }
 
-.profilePicRight{
+.profilePicRight {
   width: 75px;
   height: 75px;
   float: right;
@@ -79,11 +90,11 @@ body {
   float: left;
 }
 
-.post-body{
+.post-body {
   text-align: left;
 }
 
-.centering{
+.centering {
   padding-top: 2rem;
   display: flex;
   justify-content: center;
@@ -92,13 +103,14 @@ body {
   color: darkslategrey;
   font-variant: small-caps;
 }
-.message-container{
+
+.message-container {
   align-items: center;
   justify-content: center;
 }
 
 
-#post-list, #pm-list, #message-list{
+#post-list, #pm-list, #message-list {
   margin: 3rem;
   padding: 3rem;
 }
@@ -115,11 +127,11 @@ body {
   padding: 1rem;
   color: black;
 }
-.sidebar-spacing{
+
+.sidebar-spacing {
   margin: 1.5rem;
 }
-.comment  {
-
+.comment {
   padding: 1rem;
 }
 
@@ -164,7 +176,7 @@ body {
   justify-content: center;
   font-family: Georgia, serif;
   font-size: large;
-  color: darkslategrey;
+  color: rebeccapurple;
   font-variant: small-caps;
   text-align: justify;
 }
@@ -173,12 +185,13 @@ body {
   color: chocolate;
 }
 
-.column-picture{
+.column-picture {
   width: 25%;
   padding: 2rem;
   float: left;
 }
-.column-content{
+
+.column-content {
   width: 75%;
   padding: 2rem;
   float: left;

@@ -27,6 +27,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatCardModule} from "@angular/material/card";
 
 
 @NgModule({
@@ -60,7 +61,8 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     MatFormFieldModule,
     MatSidenavModule,
     MatCheckboxModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
