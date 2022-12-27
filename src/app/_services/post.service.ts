@@ -19,8 +19,6 @@ export class PostService {
   private postList: IPost[] = [];  //used for populating post list main page
   $postList = new BehaviorSubject<IPost[]>([])
   $postListError = new BehaviorSubject<string | null>(null)  //displays post list errors
-
-
   $selectedPost = new BehaviorSubject<IPost | null>(null)  //for viewing individual post
   $postError = new BehaviorSubject<string | null>(null)  //individual post errors
 
@@ -42,6 +40,8 @@ export class PostService {
     this.httpService.getPostsByAuthor(id).pipe(first()).subscribe({
       next: data => {
         this.postList = data;
+        // @ts-ignore
+        this.postList.sort((a,b) =>  new Date(b.createDate) - new Date(a.createDate))
         this.$postList.next(this.postList);
         this.$postListError.next(null);
       },

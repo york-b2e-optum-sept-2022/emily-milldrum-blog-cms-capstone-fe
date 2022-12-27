@@ -26,8 +26,6 @@ export class ProfileComponent {
   fName: string = "";
   lName: string = "";
 
-
-
   constructor(private postService: PostService, private mainService: MainService, private accountService: AccountService) {
 
 
@@ -48,7 +46,7 @@ export class ProfileComponent {
       dt => {this.acctErrorMessage = dt
       }
     )
-  }
+ }
 
 ngOnInit(): void {
 
